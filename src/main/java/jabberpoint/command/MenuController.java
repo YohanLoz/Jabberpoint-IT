@@ -42,7 +42,7 @@ public class MenuController extends MenuBar {
 	private final Command openPresentationCommand;
 	private final Command clearPresentationCommand;
 	private final Command savePresentationCommand;
-	private final Command exitPresentationCommand;
+	private final Command exitCommand;
 	private final Command nextSlideCommand;
 	private final Command previousSlideCommand;
 	private final Command goToSlideCommand;
@@ -56,7 +56,7 @@ public class MenuController extends MenuBar {
 		openPresentationCommand = new OpenPresentationCommand(parent, presentation);
 		clearPresentationCommand = new ClearPresentationCommand(parent, presentation);
 		savePresentationCommand = new SavePresentationCommand(parent, presentation);
-		exitPresentationCommand = new ExitPresentationCommand(presentation);
+		exitCommand = new ExitCommand(presentation);
 		nextSlideCommand = new NextSlideCommand(presentation);
 		previousSlideCommand = new PreviousSlideCommand(presentation);
 		goToSlideCommand = new GoToSlideCommand(presentation);
@@ -90,7 +90,7 @@ public class MenuController extends MenuBar {
 		fileMenu.add(menuItem = mkMenuItem(EXIT));
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
-				exitPresentationCommand.execute();
+				exitCommand.execute();
 			}
 		});
 		add(fileMenu);

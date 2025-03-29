@@ -69,6 +69,11 @@ public class BitmapItem extends SlideItem {
                 (int) (bufferedImage.getHeight(observer)*scale), observer);
 	}
 
+	@Override
+	public SlideItem clone() {
+		return new BitmapItem(getLevel(), this.imageName);
+	}
+
 	public String toString() {
 		return "presentationComponents.BitmapItem[" + getLevel() + "," + imageName + "]";
 	}

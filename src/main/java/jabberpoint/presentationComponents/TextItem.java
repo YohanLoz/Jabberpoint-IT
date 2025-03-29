@@ -96,6 +96,11 @@ public class TextItem extends SlideItem {
 		}
 	  }
 
+	@Override
+	public SlideItem clone() {
+		return new TextItem(this.getLevel(), this.text);
+	}
+
 	private List<TextLayout> getLayouts(Graphics g, Style s, float scale) {
 		List<TextLayout> layouts = new ArrayList<TextLayout>();
 		AttributedString attrStr = getAttributedString(s, scale);

@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class DisplayAboutBoxCommand extends Command{
 
-    protected Frame parent;
+    private Frame parent;
 
     public DisplayAboutBoxCommand(Frame parent)
     {
