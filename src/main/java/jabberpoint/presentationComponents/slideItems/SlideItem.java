@@ -1,6 +1,6 @@
-package jabberpoint.presentationComponents;
+package jabberpoint.presentationComponents.slideItems;
 
-import jabberpoint.Style;
+import jabberpoint.style.Style;
 
 import java.awt.Rectangle;
 import java.awt.Graphics;
@@ -33,7 +33,11 @@ public abstract class SlideItem {
 		return level;
 	}
 
-// Give the bounding box
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	// Give the bounding box
 	public abstract Rectangle getBoundingBox(Graphics g, 
 			ImageObserver observer, float scale, Style style);
 

@@ -1,4 +1,4 @@
-package jabberpoint;
+package jabberpoint.style;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -17,37 +17,24 @@ import java.awt.Font;
  */
 
 public class Style {
-	private static Style[] styles; // de styles
-	
-	private static final String FONTNAME = "Helvetica";
+	public static int idCounter = -1;
+
+	public String name;
 	public int indent;
 	public Color color;
-	Font font;
-	int fontSize;
+	public Font font;
+	public int fontSize;
 	public int leading;
+	public int id;
 
-	public static void createStyles() {
-		styles = new Style[5];    
-		// The styles are fixed.
-		styles[0] = new Style(0, Color.red,   48, 20);	// style for item-level 0
-		styles[1] = new Style(20, Color.blue,  40, 10);	// style for item-level 1
-		styles[2] = new Style(50, Color.black, 36, 10);	// style for item-level 2
-		styles[3] = new Style(70, Color.black, 30, 10);	// style for item-level 3
-		styles[4] = new Style(90, Color.black, 24, 10);	// style for item-level 4
-	}
-
-	public static Style getStyle(int level) {
-		if (level >= styles.length) {
-			level = styles.length - 1;
-		}
-		return styles[level];
-	}
-
-	public Style(int indent, Color color, int points, int leading) {
+	public Style(String name, int indent, Color color, Font font, int fontSize, int leading) {
+		this.name = name;
 		this.indent = indent;
 		this.color = color;
-		font = new Font(FONTNAME, Font.BOLD, fontSize=points);
+		this.font = font;
+		this.fontSize = fontSize;
 		this.leading = leading;
+		this.id = idCounter++;
 	}
 
 	public String toString() {

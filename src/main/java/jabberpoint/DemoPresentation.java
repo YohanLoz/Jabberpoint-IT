@@ -1,6 +1,6 @@
 package jabberpoint;
 
-import jabberpoint.presentationComponents.BitmapItem;
+import jabberpoint.presentationComponents.slideItems.BitmapItem;
 import jabberpoint.presentationComponents.Presentation;
 import jabberpoint.presentationComponents.Slide;
 

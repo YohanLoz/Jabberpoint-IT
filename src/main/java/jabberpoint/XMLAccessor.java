@@ -10,7 +10,11 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import jabberpoint.creators.SlideItemCreator;
 import jabberpoint.presentationComponents.*;
+import jabberpoint.presentationComponents.slideItems.BitmapItem;
+import jabberpoint.presentationComponents.slideItems.SlideItem;
+import jabberpoint.presentationComponents.slideItems.TextItem;
 import org.xml.sax.SAXException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -39,6 +43,7 @@ public class XMLAccessor extends Accessor {
     protected static final String ITEM = "item";
     protected static final String LEVEL = "level";
     protected static final String KIND = "kind";
+    protected static final String SLIDEITEMNAME = "name";
     protected static final String TEXT = "text";
     protected static final String IMAGE = "image";
     
@@ -92,27 +97,10 @@ public class XMLAccessor extends Accessor {
 	protected void loadSlideItem(Slide slide, Element item) {
 		int level = 1; // default
 		NamedNodeMap attributes = item.getAttributes();
-		String leveltext = attributes.getNamedItem(LEVEL).getTextContent();
-		if (leveltext != null) {
-			try {
-				level = Integer.parseInt(leveltext);
-			}
-			catch(NumberFormatException x) {
-				System.err.println(NFE);
-			}
-		}
-		String type = attributes.getNamedItem(KIND).getTextContent();
-		if (TEXT.equals(type)) {
-			slide.append(new TextItem(level, item.getTextContent()));
-		}
-		else {
-			if (IMAGE.equals(type)) {
-				slide.append(new BitmapItem(level, item.getTextContent()));
-			}
-			else {
-				System.err.println(UNKNOWNTYPE);
-			}
-		}
+		String itemName = attributes.getNamedItem(SLIDEITEMNAME).getTextContent();
+		String content = item.getTextContent();
+		String[] contentList = content.split(",");
+		SlideItemCreator.createSlideItem(itemName, slide, contentList);
 	}
 
 	public void saveFile(Presentation presentation, String filename) throws IOException {

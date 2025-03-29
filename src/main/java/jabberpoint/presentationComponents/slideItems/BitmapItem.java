@@ -1,6 +1,6 @@
-package jabberpoint.presentationComponents;
+package jabberpoint.presentationComponents.slideItems;
 
-import jabberpoint.Style;
+import jabberpoint.style.Style;
 
 import java.awt.Rectangle;
 import java.awt.Graphics;
@@ -31,10 +31,17 @@ public class BitmapItem extends SlideItem {
   protected static final String FILE = "File ";
   protected static final String NOTFOUND = " not found";
 
-// level is equal to item-level; name is the name of the file with the Image
-	public BitmapItem(int level, String name) {
-		super(level);
-		imageName = name;
+	public BitmapItem() {
+		super();
+	}
+
+// give the filename of the image
+	public String getName() {
+		return imageName;
+	}
+
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
 		try {
 			bufferedImage = ImageIO.read(new File(imageName));
 		}
@@ -43,17 +50,7 @@ public class BitmapItem extends SlideItem {
 		}
 	}
 
-// An empty bitmap-item
-	public BitmapItem() {
-		this(0, null);
-	}
-
-// give the filename of the image
-	public String getName() {
-		return imageName;
-	}
-
-// give the  bounding box of the image
+	// give the  bounding box of the image
 	public Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style myStyle) {
 		return new Rectangle((int) (myStyle.indent * scale), 0,
 				(int) (bufferedImage.getWidth(observer) * scale),

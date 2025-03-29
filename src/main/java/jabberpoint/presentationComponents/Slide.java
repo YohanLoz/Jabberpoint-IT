@@ -5,7 +5,9 @@ import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
 import java.util.Vector;
 
-import jabberpoint.Style;
+import jabberpoint.presentationComponents.slideItems.SlideItem;
+import jabberpoint.presentationComponents.slideItems.TextItem;
+import jabberpoint.style.Style;
 
 /** <p>A slide. This class has a drawing functionality.</p>
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman

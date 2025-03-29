@@ -1,6 +1,7 @@
 package jabberpoint;
 
 import jabberpoint.presentationComponents.Presentation;
+import jabberpoint.style.Style;
 
 import javax.swing.JOptionPane;
 
