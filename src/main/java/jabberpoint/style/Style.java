@@ -41,7 +41,7 @@ public class Style {
 		return "["+ indent + "," + color + "; " + fontSize + " on " + leading +"]";
 	}
 
-	public Font getFont(float scale) {
+	public Font getFittedFont(float scale) {
 		return font.deriveFont(fontSize * scale);
 	}
 }

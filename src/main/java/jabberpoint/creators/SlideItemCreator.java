@@ -51,7 +51,7 @@ public abstract class SlideItemCreator {
         return Arrays.copyOfRange(array, itemsRemoved, array.length);
     }
 
-    protected abstract void appendToSlide(Slide slide);
+    public abstract void appendToSlide(Slide slide);
 
     protected void appendToSlide(Slide slide, SlideItem item){
         slide.append(item);

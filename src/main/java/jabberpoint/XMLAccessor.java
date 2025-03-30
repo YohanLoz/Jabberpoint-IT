@@ -1,6 +1,5 @@
 package jabberpoint;
 
-import java.util.Vector;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,13 +11,10 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import jabberpoint.creators.SlideItemCreator;
 import jabberpoint.presentationComponents.*;
-import jabberpoint.presentationComponents.slideItems.BitmapItem;
 import jabberpoint.presentationComponents.slideItems.SlideItem;
-import jabberpoint.presentationComponents.slideItems.TextItem;
 import org.xml.sax.SAXException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 
 /** XMLAccessor, reads and writes XML files
@@ -32,10 +28,6 @@ import org.w3c.dom.NodeList;
  */
 
 public class XMLAccessor extends Accessor {
-	
-    /** Default API to use. */
-    protected static final String DEFAULT_API_TO_USE = "dom";
-    
     /** namen van xml tags of attributen */
     protected static final String SHOWTITLE = "showtitle";
     protected static final String SLIDETITLE = "title";
@@ -44,8 +36,6 @@ public class XMLAccessor extends Accessor {
     
     /** tekst van messages */
     protected static final String PCE = "Parser Configuration Exception";
-    protected static final String UNKNOWNTYPE = "Unknown Element type";
-    protected static final String NFE = "Number Format Exception";
 
 
 	public void loadFile(Presentation presentation, String filename) throws IOException {
@@ -89,7 +79,7 @@ public class XMLAccessor extends Accessor {
 
 	}
 
-	protected void loadSlideItem(Slide slide, Element item) {
+	private void loadSlideItem(Slide slide, Element item) {
 		SlideItemCreator.createSlideItem(slide, item);
 	}
 

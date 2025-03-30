@@ -13,21 +13,7 @@ public class StyleFactory {
         styles = new ArrayList<Style>();
     }
 
-    public static Style getStyle(int indent, Color color, Font font, int fontSize, int leading){
-        for (Style style : styles) {
-            if(style.indent == indent
-            && style.color == color
-            && style.font == font
-            && style.fontSize == fontSize
-            && style.leading == leading){
-                return style;
-            }
-        }
-
-        return createStyle(indent, color, font, fontSize, leading);
-    }
-
-    // also updates
+    // can also update style by name
     public static Style getStyle(String name, int indent, Color color, Font font, int fontSize, int leading){
         Style style = getStyleByName(name);
         if(style == null){
@@ -39,6 +25,48 @@ public class StyleFactory {
         style.fontSize = fontSize;
         style.leading = leading;
         return style;
+    }
+
+    private static Style createStyle(String name, int indent, Color color, Font font, int fontSize, int leading){
+        Style style = new Style(
+                name,
+                indent,
+                color,
+                font,
+                fontSize,
+                leading);
+        styles.add(style);
+        return style;
+    }
+
+    public static Style getStyle(int indent, Color color, Font font, int fontSize, int leading){
+        for (Style style : styles) {
+            if(style.indent == indent
+                    && style.color == color
+                    && style.font == font
+                    && style.fontSize == fontSize
+                    && style.leading == leading){
+                return style;
+            }
+        }
+
+        return createStyle(indent, color, font, fontSize, leading);
+    }
+
+    private static Style createStyle(int indent, Color color, Font font, int fontSize, int leading){
+        Style style = new Style(
+                getAndUpdateUnnamed(),
+                indent,
+                color,
+                font,
+                fontSize,
+                leading);
+        styles.add(style);
+        return style;
+    }
+
+    private static String getAndUpdateUnnamed(){
+        return "Unnamed" + unnamedId++;
     }
 
     public static Style getStyleByName(String name) {
@@ -68,49 +96,23 @@ public class StyleFactory {
         throw new IllegalArgumentException("No Style with name " + name + " found");
     }
 
-    private static Style createStyle(String name, int indent, Color color, Font font, int fontSize, int leading){
-        Style style = new Style(
-                name,
-                indent,
-                color,
-                font,
-                fontSize,
-                leading);
-        styles.add(style);
-        return style;
-    }
-    private static Style createStyle(int indent, Color color, Font font, int fontSize, int leading){
-        Style style = new Style(
-                getAndUpdateUnnamed(),
-                indent,
-                color,
-                font,
-                fontSize,
-                leading);
-        styles.add(style);
-        return style;
-    }
-
-    private static String getAndUpdateUnnamed(){
-        return "Unnamed" + unnamedId++;
-    }
 
     public static String getSaveString(Style style){
         String[] string = {style.name,
                 Integer.toString(style.indent),
-                deriveColor(style.color),
-                deriveFontString(style.font),
+                parseToString(style.color),
+                parseToString(style.font),
                 Integer.toString(style.fontSize),
                 Integer.toString(style.leading)};
 
         return String.join(SlideItemCreator.DELIMITER, string);
     }
 
-    private static String deriveFontString(Font font){
+    private static String parseToString(Font font){
         return String.format("%s-%s-%s", font.getFamily(), font.getStyle(), font.getSize());
     }
 
-    private static String deriveColor(Color color){
+    private static String parseToString(Color color){
         return String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
     }
 
