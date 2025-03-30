@@ -63,6 +63,12 @@ public abstract class SlideItemCreator {
         item.setLevel(level);
     }
 
+    public abstract SlideItemCreator setCoords(int X, int Y);
+    protected void setCoords(int X, int Y, SlideItem item){
+        item.setX(X);
+        item.setY(Y);
+    }
+
     public abstract SlideItemCreator setX(int x);
     protected void setX(int x, SlideItem item){
         item.setX(x);

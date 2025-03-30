@@ -27,6 +27,7 @@ import java.io.IOException;
 public class BitmapItem extends SlideItem {
   private BufferedImage bufferedImage;
   private String imageName;
+  private Float size = 1f;
   
   protected static final String FILE = "File ";
   protected static final String NOTFOUND = " not found";
@@ -50,6 +51,13 @@ public class BitmapItem extends SlideItem {
 		}
 	}
 
+	public Float getSize() {
+		return size;
+	}
+	public void setSize(Float size) {
+		this.size = size;
+	}
+
 // draw the image
 	public void draw(float scale, Graphics g, ImageObserver observer) {
 		Rectangle boundingBox = getBoundingBox(g, observer,scale);
@@ -59,9 +67,9 @@ public class BitmapItem extends SlideItem {
 	// give the  bounding box of the image
 	public Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale) {
 		return new Rectangle((int) (1 * scale), 0,
-				(int) (bufferedImage.getWidth(observer) * scale),
+				(int) (bufferedImage.getWidth(observer) * scale * size),
 				((int) (1 * scale)) +
-						(int) (bufferedImage.getHeight(observer) * scale));
+						(int) (bufferedImage.getHeight(observer) * scale * size));
 	}
 
 	public String toString() {

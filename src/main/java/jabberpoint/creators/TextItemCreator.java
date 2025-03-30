@@ -55,19 +55,25 @@ public class TextItemCreator extends SlideItemCreator {
     }
 
     @Override
-    public SlideItemCreator setLevel(int level) {
+    public TextItemCreator setLevel(int level) {
         item.setLevel(level);
         return this;
     }
 
     @Override
-    public SlideItemCreator setX(int x) {
+    public TextItemCreator setCoords(int X, int Y) {
+        setCoords(X, Y, item);
+        return this;
+    }
+
+    @Override
+    public TextItemCreator setX(int x) {
         item.setX(x);
         return this;
     }
 
     @Override
-    public SlideItemCreator setY(int y) {
+    public TextItemCreator setY(int y) {
         item.setY(y);
         return this;
     }

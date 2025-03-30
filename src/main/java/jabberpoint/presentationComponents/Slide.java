@@ -3,11 +3,10 @@ package jabberpoint.presentationComponents;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
+import java.util.Comparator;
 import java.util.Vector;
 
 import jabberpoint.presentationComponents.slideItems.SlideItem;
-import jabberpoint.presentationComponents.slideItems.TextItem;
-import jabberpoint.style.Style;
 
 /** <p>A slide. This class has a drawing functionality.</p>
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
@@ -62,6 +61,9 @@ public class Slide {
 	// draw the slide
 	public void draw(Graphics g, Rectangle area, ImageObserver view) {
 		float scale = getScale(area);
+
+		items.sort(Comparator.comparingInt(SlideItem::getLevel));
+
 	    for (SlideItem slideItem: items){
 			slideItem.draw(scale, g, view);
 	    }

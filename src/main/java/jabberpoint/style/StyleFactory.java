@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class StyleFactory {
-    private static ArrayList<Style> styles;
+    private static ArrayList<Style> styles = new ArrayList<>();
 
     private static int unnamedId = -1;
     public StyleFactory(){

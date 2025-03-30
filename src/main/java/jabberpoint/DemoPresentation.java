@@ -1,5 +1,6 @@
 package jabberpoint;
 
+import jabberpoint.creators.BitmapItemCreator;
 import jabberpoint.creators.TextItemCreator;
 import jabberpoint.presentationComponents.slideItems.BitmapItem;
 import jabberpoint.presentationComponents.Presentation;
@@ -26,9 +27,41 @@ class DemoPresentation extends Accessor {
 		Slide slide;
 		slide = new Slide();
 		slide.setTitle("JabberPoint");
-		StyleFactory.getStyle("default", 12, Color.black, new Font("Comic Sans", Font.PLAIN, 12), 12, 10);
+		StyleFactory.getStyle("default", 12, Color.black, new Font("Comic Sans MS", Font.PLAIN, 12), 50, 10);
+		StyleFactory.getStyle("cursive", 12, Color.black, new Font("Forte", Font.ITALIC, 12), 50, 10);
+		StyleFactory.getStyle("IMPACT", 12, Color.black, new Font("Impact", Font.BOLD, 12), 50, 10);
+		StyleFactory.getStyle("impactRed", 12, Color.red, new Font("Impact", Font.PLAIN, 12), 50, 10);
+		StyleFactory.getStyle("impactGreen", 12, Color.green, new Font("Impact", Font.PLAIN, 12), 50, 10);
+		StyleFactory.getStyle("impactBlue", 12, Color.blue, new Font("Impact", Font.PLAIN, 12), 50, 10);
+
+
 		new TextItemCreator().setStyle("default").setText("The Java presentationComponents.Presentation Tool!").appendToSlide(slide);
+
+		new TextItemCreator().setStyle("cursive").setText("Cursive edition!").setCoords(10, 200).appendToSlide(slide);
+
+		new TextItemCreator().setStyle("IMPACT").setText("IMPACT EDITION!").setCoords(10, 400).appendToSlide(slide);
+
+
+		new TextItemCreator().setStyle("IMPACT").setText("And now on the right side!!").setCoords(500, 250).appendToSlide(slide);
+
 		presentation.append(slide);
+
+
+		slide = new Slide();
+
+		new TextItemCreator().setStyle("impactRed").setLevel(-1).setText("levels just work!").setCoords(30, 300).appendToSlide(slide);
+		new TextItemCreator().setStyle("impactGreen").setLevel(0).setText("levels just work!").setCoords(35, 300).appendToSlide(slide);
+		new TextItemCreator().setStyle("impactBlue").setLevel(1).setText("levels just work!").setCoords(40, 300).appendToSlide(slide);
+
+		new BitmapItemCreator().setImage("serclogo_fc.jpg").setScale(2).setCoords(600, 400).appendToSlide(slide);
+
+		new TextItemCreator().setStyle("default").setText("images too!~").setCoords(600, 370).setLevel(1).appendToSlide(slide);
+
+		presentation.append(slide);
+
+
+
+
 	}
 
 	public void saveFile(Presentation presentation, String unusedFilename) {
