@@ -12,6 +12,7 @@ public class BitmapItemCreator extends SlideItemCreator {
 
     @Override
     public SlideItemCreator processArgs(String[] args) {
+        args = applyDefaultVarsReturnRest(args, item);
         item.setImageName(args[0]);
         return this;
     }
@@ -24,7 +25,25 @@ public class BitmapItemCreator extends SlideItemCreator {
         super.appendToSlide(slide, item);
     }
 
-    static public String createSaveString(BitmapItem item){
-        return SlideItemCreator.createSaveString("BitmapItem", item.getName());
+    static public String getSaveString(BitmapItem item){
+        return SlideItemCreator.getSaveString("BitmapItem", item.getName(), item);
+    }
+
+    @Override
+    public SlideItemCreator setLevel(int level) {
+        item.setLevel(level);
+        return this;
+    }
+
+    @Override
+    public SlideItemCreator setX(int x) {
+        item.setX(x);
+        return this;
+    }
+
+    @Override
+    public SlideItemCreator setY(int y) {
+        item.setY(y);
+        return this;
     }
 }

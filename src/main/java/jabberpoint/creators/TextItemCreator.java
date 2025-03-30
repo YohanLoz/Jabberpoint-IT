@@ -6,7 +6,6 @@ import jabberpoint.style.Style;
 import jabberpoint.style.StyleFactory;
 
 import java.awt.*;
-import java.util.Arrays;
 
 public class TextItemCreator extends SlideItemCreator {
     TextItem item;
@@ -16,45 +15,68 @@ public class TextItemCreator extends SlideItemCreator {
 
     @Override
     public SlideItemCreator processArgs(String[] args) {
+        args = applyDefaultVarsReturnRest(args, item);
         item.setText(args[0]);
-        String[] styleArgs = Arrays.copyOfRange(args, 1, args.length);
+        String[] styleArgs = createShortenedArrayFromStart(args, 1);
         Style style = StyleFactory.getStyleFromArgs(styleArgs);
         item.setStyleId(style.id);
         return this;
     }
 
-    private void setStyle(String name, int indent, Color color, Font font, int fontSize, int leading){
+    public TextItemCreator setStyle(String name, int indent, Color color, Font font, int fontSize, int leading){
         Style style = StyleFactory.getStyle(name, indent, color, font, fontSize, leading);
         setStyle(style);
+        return this;
     }
 
-    private void setStyle(String name){
+    public TextItemCreator setStyle(String name){
         Style style = StyleFactory.getStyleByName(name);
         if(style == null){
             throw new IllegalArgumentException("No such style: " + name);
         }
         setStyle(style);
+        return this;
     }
 
-    private void setStyle(Style style){
+    public TextItemCreator setStyle(Style style){
         int id = StyleFactory.getIdByName(style.name);
         item.setStyleId(id);
+        return this;
     }
 
 
-    private void setText(String text){
+    public TextItemCreator setText(String text){
         item.setText(text);
+        return this;
     }
 
     public void appendToSlide(Slide slide) {
         super.appendToSlide(slide, item);
     }
 
-    public static String createSaveString(TextItem item) {
+    @Override
+    public SlideItemCreator setLevel(int level) {
+        item.setLevel(level);
+        return this;
+    }
+
+    @Override
+    public SlideItemCreator setX(int x) {
+        item.setX(x);
+        return this;
+    }
+
+    @Override
+    public SlideItemCreator setY(int y) {
+        item.setY(y);
+        return this;
+    }
+
+    public static String getSaveString(TextItem item) {
         String[] values = {item.getText(),
                 StyleFactory.getSaveString(item.getStyle())};
-
-        return SlideItemCreator.createSaveString("SlideItem", String.join(",", values));
+        String joinedString = String.join(DELIMITER, values);
+        return SlideItemCreator.getSaveString("SlideItem", joinedString, item);
     }
 
 }

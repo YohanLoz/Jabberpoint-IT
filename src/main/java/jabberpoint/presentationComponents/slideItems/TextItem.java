@@ -1,5 +1,6 @@
 package jabberpoint.presentationComponents.slideItems;
 
+import jabberpoint.creators.TextItemCreator;
 import jabberpoint.presentationComponents.Slide;
 import jabberpoint.style.Style;
 import jabberpoint.style.StyleFactory;
@@ -63,9 +64,9 @@ public class TextItem extends SlideItem {
 
 // give the bounding box of the item
 	public Rectangle getBoundingBox(Graphics g, ImageObserver observer, 
-			float scale, Style myStyle) {
+			float scale) {
 		List<TextLayout> layouts = getLayouts(g, scale);
-		int xsize = 0, ysize = (int) (myStyle.leading * scale);
+		int xsize = 0, ysize = (int) (getStyle().leading * scale);
 		Iterator<TextLayout> iterator = layouts.iterator();
 		while (iterator.hasNext()) {
 			TextLayout layout = iterator.next();
@@ -78,20 +79,19 @@ public class TextItem extends SlideItem {
 			}
 			ysize += layout.getLeading() + layout.getDescent();
 		}
-		return new Rectangle((int) (myStyle.indent*scale), 0, xsize, ysize );
+		return new Rectangle((int) (getStyle().indent*scale), 0, xsize, ysize );
 	}
 
 // draw the item
-	public void draw(int x, int y, float scale, Graphics g,
-                     Style myStyle, ImageObserver o) {
+	public void draw(float scale, Graphics g, ImageObserver o) {
 		if (text == null || text.length() == 0) {
 			return;
 		}
 		List<TextLayout> layouts = getLayouts(g, scale);
-		Point pen = new Point(x + (int)(myStyle.indent * scale),
-				y + (int) (myStyle.leading * scale));
+		Point pen = new Point(getX() + (int)(getStyle().indent * scale),
+				getY() + (int) (getStyle().leading * scale));
 		Graphics2D g2d = (Graphics2D)g;
-		g2d.setColor(myStyle.color);
+		g2d.setColor(getStyle().color);
 		Iterator<TextLayout> it = layouts.iterator();
 		while (it.hasNext()) {
 			TextLayout layout = it.next();
@@ -121,5 +121,10 @@ public class TextItem extends SlideItem {
 
 	public Style getStyle(){
 		return StyleFactory.getStyleById(this.styleId);
+	}
+
+	@Override
+	public String getSaveString() {
+		return TextItemCreator.getSaveString(this);
 	}
 }

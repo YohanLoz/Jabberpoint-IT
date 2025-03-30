@@ -44,11 +44,6 @@ public class Slide {
 		title = newTitle;
 	}
 
-	// Create presentationComponents.TextItem of String, and add the presentationComponents.TextItem
-	public void append(int level, String message) {
-		append(new TextItem(level, message));
-	}
-
 	// give the  presentationComponents.SlideItem
 	public SlideItem getSlideItem(int number) {
 		return (SlideItem)items.elementAt(number);
@@ -67,17 +62,8 @@ public class Slide {
 	// draw the slide
 	public void draw(Graphics g, Rectangle area, ImageObserver view) {
 		float scale = getScale(area);
-	    int y = area.y;
-	// Title is handled separately
-	    SlideItem slideItem = new TextItem(0, getTitle());
-	    Style style = Style.getStyle(slideItem.getLevel());
-	    slideItem.draw(area.x, y, scale, g, style, view);
-	    y += slideItem.getBoundingBox(g, view, scale, style).height;
-	    for (int number=0; number<getSize(); number++) {
-	      slideItem = (SlideItem)getSlideItems().elementAt(number);
-	      style = Style.getStyle(slideItem.getLevel());
-	      slideItem.draw(area.x, y, scale, g, style, view);
-	      y += slideItem.getBoundingBox(g, view, scale, style).height;
+	    for (SlideItem slideItem: items){
+			slideItem.draw(scale, g, view);
 	    }
 	  }
 
