@@ -17,7 +17,7 @@ import java.awt.Font;
  */
 
 public class Style {
-	public static int idCounter = -1;
+	public static int idCounter = 0;
 
 	public String name;
 	public int indent;

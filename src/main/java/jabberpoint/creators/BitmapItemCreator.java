@@ -5,7 +5,7 @@ import jabberpoint.presentationComponents.slideItems.BitmapItem;
 
 public class BitmapItemCreator extends SlideItemCreator {
 
-    static final String CLASSNAME = "BitMapItem";
+    static final String CLASSNAME = "BitmapItem";
 
     BitmapItem item;
     public BitmapItemCreator() {
@@ -16,6 +16,7 @@ public class BitmapItemCreator extends SlideItemCreator {
     public BitmapItemCreator processArgs(String[] args) {
         args = applyDefaultVarsReturnRest(args, item);
         item.setImageName(args[0]);
+        item.setSize(Float.parseFloat(args[1]));
         return this;
     }
 
@@ -34,7 +35,9 @@ public class BitmapItemCreator extends SlideItemCreator {
     }
 
     static public String getSaveString(BitmapItem item){
-        return SlideItemCreator.getSaveString("BitmapItem", item.getName(), item);
+        String[] values = {item.getName(), item.getSize().toString()};
+        String saveString = String.join(DELIMITER, values);
+        return SlideItemCreator.getSaveString(CLASSNAME, saveString, item);
     }
 
     @Override

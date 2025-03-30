@@ -119,8 +119,13 @@ public class StyleFactory {
         return getStyle(args[0],
                 Integer.parseInt(args[1]),
                 Color.decode(args[2]),
-                Font.decode(args[3]),
+                decodeFontString(args[3]),
                 Integer.parseInt(args[4]),
                 Integer.parseInt(args[5]));
+    }
+
+    private static Font decodeFontString(String string) {
+        String[] split = string.split("-");
+        return new Font(split[0], Integer.parseInt(split[1]), Integer.parseInt(split[2]));
     }
 }
