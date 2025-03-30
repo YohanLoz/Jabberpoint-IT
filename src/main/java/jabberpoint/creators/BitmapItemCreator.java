@@ -63,4 +63,8 @@ public class BitmapItemCreator extends SlideItemCreator {
         item.setY(y);
         return this;
     }
+
+    public BitmapItem getItem() {
+        return item;
+    }
 }

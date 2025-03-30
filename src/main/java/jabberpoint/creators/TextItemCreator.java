@@ -11,13 +11,13 @@ public class TextItemCreator extends SlideItemCreator {
 
     static final String CLASSNAME = "TextItem";
 
-    TextItem item;
+    private TextItem item;
     public TextItemCreator() {
         this.item = new TextItem();
     }
 
     @Override
-    public SlideItemCreator processArgs(String[] args) {
+    public TextItemCreator processArgs(String[] args) {
         args = applyDefaultVarsReturnRest(args, item);
         item.setText(args[0]);
         String[] styleArgs = createShortenedArrayFromStart(args, 1);
@@ -79,6 +79,10 @@ public class TextItemCreator extends SlideItemCreator {
     public TextItemCreator setY(int y) {
         item.setY(y);
         return this;
+    }
+
+    public TextItem getItem() {
+        return item;
     }
 
     public static String getSaveString(TextItem item) {
