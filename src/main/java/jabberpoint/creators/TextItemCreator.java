@@ -8,6 +8,9 @@ import jabberpoint.style.StyleFactory;
 import java.awt.*;
 
 public class TextItemCreator extends SlideItemCreator {
+
+    static final String CLASSNAME = "TextItem";
+
     TextItem item;
     public TextItemCreator() {
         this.item = new TextItem();
@@ -82,7 +85,7 @@ public class TextItemCreator extends SlideItemCreator {
         String[] values = {item.getText(),
                 StyleFactory.getSaveString(item.getStyle())};
         String joinedString = String.join(DELIMITER, values);
-        return SlideItemCreator.getSaveString("SlideItem", joinedString, item);
+        return SlideItemCreator.getSaveString("TextItem", joinedString, item);
     }
 
 }

@@ -5,6 +5,8 @@ import jabberpoint.presentationComponents.slideItems.BitmapItem;
 
 public class BitmapItemCreator extends SlideItemCreator {
 
+    static final String CLASSNAME = "BitMapItem";
+
     BitmapItem item;
     public BitmapItemCreator() {
         this.item = new BitmapItem();

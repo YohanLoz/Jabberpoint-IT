@@ -11,29 +11,29 @@ import java.util.Arrays;
 public abstract class SlideItemCreator {
 
     protected static final String SLIDEITEMNAME = "name";
-    protected static final String DELIMITER= "||";
+    public static final String DELIMITER= ",,,";
 
     public abstract SlideItemCreator processArgs(String[] args);
 
     static public void createSlideItem(Slide slide, Element element){
         NamedNodeMap attributes = element.getAttributes();
-        String itemName = attributes.getNamedItem(SLIDEITEMNAME).getTextContent();
+        String itemName = attributes.getNamedItem(SLIDEITEMNAME).getNodeValue();
         String content = element.getTextContent();
         SlideItemCreator.createSlideItem(itemName, slide, content);
     }
 
     static public void createSlideItem(String name, Slide slide, String content){
-        String[] contentList = content.split(",");
+        String[] contentList = content.split(DELIMITER);
         createSlideItem(name, slide, contentList);
     }
 
     static public void createSlideItem(String name, Slide slide, String[] args){
         switch(name){
-            case "TextItem":
+            case TextItemCreator.CLASSNAME:
                 new TextItemCreator().processArgs(args).appendToSlide(slide);
                 break;
 
-            case "BitmapItem":
+            case BitmapItemCreator.CLASSNAME:
                 new BitmapItemCreator().processArgs(args).appendToSlide(slide);
                 break;
 
@@ -88,6 +88,6 @@ public abstract class SlideItemCreator {
         String defaultContent = String.join(DELIMITER, defaultValuesArray);
         String fullContent = defaultContent + DELIMITER + newContent;
 
-        return String.format("<item %s=%s>%s</item>", SLIDEITEMNAME, name, fullContent);
+        return String.format("<item %s=%s>%s</item>", SLIDEITEMNAME, "\""+name+"\"", fullContent);
     }
 }

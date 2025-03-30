@@ -1,5 +1,7 @@
 package jabberpoint.style;
 
+import jabberpoint.creators.SlideItemCreator;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -96,19 +98,28 @@ public class StyleFactory {
     public static String getSaveString(Style style){
         String[] string = {style.name,
                 Integer.toString(style.indent),
-                style.color.toString(),
-                style.font.toString(),
+                deriveColor(style.color),
+                deriveFontString(style.font),
                 Integer.toString(style.fontSize),
                 Integer.toString(style.leading)};
 
-        return String.join(",", string);
+        return String.join(SlideItemCreator.DELIMITER, string);
     }
+
+    private static String deriveFontString(Font font){
+        return String.format("%s-%s-%s", font.getFamily(), font.getStyle(), font.getSize());
+    }
+
+    private static String deriveColor(Color color){
+        return String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
+    }
+
 
     public static Style getStyleFromArgs(String[] args){
         return getStyle(args[0],
                 Integer.parseInt(args[1]),
-                Color.getColor(args[2]),
-                Font.getFont(args[3]),
+                Color.decode(args[2]),
+                Font.decode(args[3]),
                 Integer.parseInt(args[4]),
                 Integer.parseInt(args[5]));
     }
