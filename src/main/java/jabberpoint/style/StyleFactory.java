@@ -130,4 +130,16 @@ public class StyleFactory {
         String[] split = string.split("-");
         return new Font(split[0], Integer.parseInt(split[1]), Integer.parseInt(split[2]));
     }
+
+    public static void removeStyleByName(String name){
+        Style style = getStyleByName(name);
+        if(style == null){
+            return;
+        }
+        styles.remove(style);
+    }
+
+    public static void fullFlushAllStyles(){
+        styles.clear();
+    }
 }

@@ -1,13 +1,7 @@
-package jabberpoint.Creators;
+package jabberpoint.creators;
 
-import jabberpoint.creators.TextItemCreator;
-import jabberpoint.presentationComponents.Presentation;
-import jabberpoint.presentationComponents.Slide;
 import jabberpoint.presentationComponents.slideItems.TextItem;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-
-import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 

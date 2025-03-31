@@ -1,13 +1,8 @@
-package jabberpoint.Creators;
+package jabberpoint.creators;
 
 
-import jabberpoint.creators.BitmapItemCreator;
-import jabberpoint.presentationComponents.Presentation;
 import jabberpoint.presentationComponents.slideItems.BitmapItem;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-
-import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
