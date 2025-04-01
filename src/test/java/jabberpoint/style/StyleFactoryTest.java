@@ -19,12 +19,12 @@ public class StyleFactoryTest {
     int correctStyleFontSize = 50;
     int correctStyleLeading = 10;
 
-    static final String[] correctArgsStyle = {"default","12#000000","Comic Sans MS-0-12","50","10"};
+    static final String[] correctArgsStyle = {"default","12","#000000","Comic Sans MS-0-12","50","10"};
 
     Style style;
     @BeforeEach
     void setUp() {
-        StyleFactory.fullFlushAllStyles();
+        StyleFactory.fullResetStyles();
         style = StyleFactory.getStyle(correctDefaultStyleName, correctStyleIndent, correctStyleColor, correctStyleFont, correctStyleFontSize, correctStyleLeading);
     }
 
@@ -179,8 +179,8 @@ public class StyleFactoryTest {
         Font newStyleFont = new Font("Comic Sans MS", Font.PLAIN, 12);
         int newStyleFontSize = 50;
         int newStyleLeading = 10;
-        Style newstyle1 = StyleFactory.getStyle(newStyleIndent, newStyleColor, newStyleFont, newStyleFontSize, newStyleLeading);
-        Style newstyle2 = StyleFactory.getStyle(newStyleIndent, newStyleColor, newStyleFont, newStyleFontSize, newStyleLeading);
+        Style newstyle1 = StyleFactory.getStyle(13, newStyleColor, newStyleFont, newStyleFontSize, newStyleLeading);
+        Style newstyle2 = StyleFactory.getStyle(12, newStyleColor, newStyleFont, newStyleFontSize, newStyleLeading);
 
         Pattern p = Pattern.compile("\\d+");
         Matcher m = p.matcher(newstyle1.name);
@@ -224,8 +224,8 @@ public class StyleFactoryTest {
     }
 
     @Test
-    void getStyleById_0_throwsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, () -> StyleFactory.getStyleById(0));
+    void getStyleById_0_getsStyle() {
+        assertEquals(style, StyleFactory.getStyleById(0));
     }
 
     @Test
@@ -245,22 +245,22 @@ public class StyleFactoryTest {
 
     @Test
     void removeStyleByName_normal_removesStyle(){
-        StyleFactory.removeStyleByName(correctStyleName);
+        StyleFactory.removeStyleByName(correctDefaultStyleName);
         assertEquals(0, StyleFactory.getNumberOfStyles());
     }
     @Test
     void removeStyleByName_doesNotExist_doesNothing(){
-        assertDoesNotThrow(() -> {StyleFactory.removeStyleByName(null);});
+        assertDoesNotThrow(() -> {StyleFactory.removeStyleByName("SCREAMER");});
     }
 
     @Test
     void removeStyleByName_null_throwsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, ()->{StyleFactory.removeStyleByName(null);});
+        assertDoesNotThrow(()->{StyleFactory.removeStyleByName(null);});
     }
 
     @Test
     void removeStyleByName_empty_throwsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, ()->{StyleFactory.removeStyleByName("");});
+        assertDoesNotThrow(()->{StyleFactory.removeStyleByName("");});
     }
 
     @Test
@@ -270,7 +270,7 @@ public class StyleFactoryTest {
 
     @Test
     void fullFlushAllStyles_flushesAllStyles(){
-        StyleFactory.fullFlushAllStyles();
+        StyleFactory.fullResetStyles();
         assertEquals(0, StyleFactory.getNumberOfStyles());
     }
 

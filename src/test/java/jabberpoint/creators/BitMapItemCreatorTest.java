@@ -31,7 +31,7 @@ public class BitMapItemCreatorTest {
         assertEquals(Integer.parseInt(SlideItemCreatorTest.correctArgsBitMapItem[1]), item.getX());
         assertEquals(Integer.parseInt(SlideItemCreatorTest.correctArgsBitMapItem[2]), item.getY());
         assertEquals(SlideItemCreatorTest.correctArgsBitMapItem[3], item.getName());
-        assertEquals(Integer.parseInt(SlideItemCreatorTest.correctArgsBitMapItem[4]), item.getSize());
+        assertEquals(Float.parseFloat(SlideItemCreatorTest.correctArgsBitMapItem[4]), item.getSize());
     }
 
     @Test

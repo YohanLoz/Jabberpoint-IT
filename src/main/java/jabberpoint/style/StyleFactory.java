@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class StyleFactory {
     private static ArrayList<Style> styles = new ArrayList<>();
 
-    private static int unnamedId = -1;
+    private static int unnamedId = 0;
     public StyleFactory(){
         styles = new ArrayList<Style>();
     }
@@ -16,6 +16,9 @@ public class StyleFactory {
     public static Style getStyleFromArgs(String[] args){
         if(args == null || args.length == 0){
             throw new IllegalArgumentException("No args provided");
+        }
+        if(args.length < 6){
+            throw new IllegalArgumentException("not enough args were passed. expected 6, got: " + args.length);
         }
         return getStyle(args[0],
                 Integer.parseInt(args[1]),
@@ -37,7 +40,7 @@ public class StyleFactory {
     public static Style getStyle(String name, int indent, Color color, Font font, int fontSize, int leading){
         // if name is missing: redirect to non-named version
         if(name==null || name.isEmpty()){
-            getStyle(indent, color, font, fontSize, leading);
+            return getStyle(indent, color, font, fontSize, leading);
         }
         Style style = getStyleByName(name);
         if(style == null){
@@ -170,7 +173,9 @@ public class StyleFactory {
         return styles.size();
     }
 
-    public static void fullFlushAllStyles(){
+    public static void fullResetStyles(){
         styles.clear();
+        Style.resetIdCounter();
+        unnamedId = 0;
     }
 }

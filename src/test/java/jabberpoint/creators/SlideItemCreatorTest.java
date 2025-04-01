@@ -12,7 +12,7 @@ public class SlideItemCreatorTest {
 
     static final String correctStringTextItem = "1,,,2,,,3,,,The Java presentationComponents.Presentation Tool!,,,default,,,12,,,#000000,,,Comic Sans MS-0-12,,,50,,,10";
     static final String correctStringBitmapItem = "0,,,600,,,400,,,serclogo_fc.jpg,,,2.0";
-    static final String[] correctArgsTextItem = {"1","2","3","The Java presentationComponents.Presentation Tool!","default","12#000000","Comic Sans MS-0-12","50","10"};
+    static final String[] correctArgsTextItem = {"1","2","3","The Java presentationComponents.Presentation Tool!","default","12","#000000","Comic Sans MS-0-12","50","10"};
     static final String[] correctArgsBitMapItem = {"0","600","400","serclogo_fc.jpg","2.0"};
     static final String expectedTextItemSaveString = "<item name=\"TextItem\">1,,,2,,,3,,,The Java presentationComponents.Presentation Tool!,,,default,,,12,,,#000000,,,Comic Sans MS-0-12,,,50,,,10</item>";
 
@@ -21,7 +21,7 @@ public class SlideItemCreatorTest {
     @BeforeEach
     void setup()
     {
-        Slide slide = new Slide();
+        slide = new Slide();
     }
 
     // software will still work if this fails, but compatibility will fail, including the tests.
@@ -31,14 +31,14 @@ public class SlideItemCreatorTest {
     }
     @Test
     void createSlideItem_correctTextItemString_succeeds() {
-        SlideItemCreator.createSlideItem("TextItem", slide, correctStringTextItem);
-        assertTrue(slide.getSlideItems().contains(TextItem.class));
+        SlideItemCreator.createSlideItem(TextItemCreator.CLASSNAME, slide, correctStringTextItem);
+        assertEquals(1, slide.getSize());
     }
 
     @Test
     void createSlideItem_correctBitmapItemString_succeeds() {
-        SlideItemCreator.createSlideItem("BitmapItem", slide, correctStringBitmapItem);
-        assertTrue(slide.getSlideItems().contains(BitmapItem.class));
+        SlideItemCreator.createSlideItem(BitmapItemCreator.CLASSNAME, slide, correctStringBitmapItem);
+        assertEquals(1, slide.getSize());
     }
 
     @Test

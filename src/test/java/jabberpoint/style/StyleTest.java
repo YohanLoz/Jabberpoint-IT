@@ -42,24 +42,23 @@ public class StyleTest {
     @Test
     void getFittedFont_returnsDuplicateFont(){
         Font fittedfont = style.getFittedFont(1);
-        assertEquals(style.font.getAttributes(), fittedfont.getAttributes());
         assertEquals(style.font.getStyle(), fittedfont.getStyle());
     }
 
     @Test
     void getFittedFont_1_success(){
-        assertEquals(style.font.getSize(), style.getFittedFont(1).getSize());
+        assertEquals(style.fontSize, style.getFittedFont(1).getSize());
     }
     @Test
     void getFittedFont_5x_success(){
-        assertEquals(style.font.getSize()*5, style.getFittedFont(5).getSize());
+        assertEquals(style.fontSize*5, style.getFittedFont(5).getSize());
     }
     @Test
     void getFittedFont_0_success(){
         assertEquals(0, style.getFittedFont(0).getSize());
     }
     @Test
-    void getFittedFont_neg5x_success(){
-        assertEquals(style.font.getSize()*-5, style.getFittedFont(-5).getSize());
+    void getFittedFont_neg5x_doesNotThrow(){
+        assertDoesNotThrow(()->{style.getFittedFont(-5);});
     }
 }

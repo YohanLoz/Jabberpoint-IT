@@ -53,4 +53,8 @@ public class Style {
 	public Font getFittedFont(float scale) {
 		return font.deriveFont(fontSize * scale);
 	}
+
+	public static void resetIdCounter(){
+		idCounter = 0;
+	}
 }

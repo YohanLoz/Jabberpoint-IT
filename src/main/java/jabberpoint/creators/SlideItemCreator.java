@@ -23,6 +23,15 @@ public abstract class SlideItemCreator {
     }
 
     static public void createSlideItem(String name, Slide slide, String content){
+        if(name == null || name == ""){
+            throw new IllegalArgumentException("name cannot be null");
+        }
+        if(slide == null){
+            throw new IllegalArgumentException("slide cannot be null");
+        }
+        if(content == null){
+            throw new IllegalArgumentException("content cannot be null");
+        }
         String[] contentList = content.split(DELIMITER);
         createSlideItem(name, slide, contentList);
     }
@@ -31,13 +40,14 @@ public abstract class SlideItemCreator {
         switch(name){
             case TextItemCreator.CLASSNAME:
                 new TextItemCreator().processArgs(args).appendToSlide(slide);
-                break;
+                return;
 
             case BitmapItemCreator.CLASSNAME:
                 new BitmapItemCreator().processArgs(args).appendToSlide(slide);
-                break;
+                return;
 
         }
+        throw new IllegalArgumentException("item of name: " + name + "does not exist.");
     }
 
     static protected String[] applyDefaultVarsReturnRest(String[] args, SlideItem item){

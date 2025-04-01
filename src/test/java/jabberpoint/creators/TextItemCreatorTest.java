@@ -2,9 +2,9 @@ package jabberpoint.creators;
 
 import jabberpoint.presentationComponents.Slide;
 import jabberpoint.presentationComponents.slideItems.TextItem;
-import jabberpoint.presentationComponents.slideItems.TextItem;
 import jabberpoint.style.Style;
 import jabberpoint.style.StyleFactory;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,10 +29,13 @@ public class TextItemCreatorTest {
     @BeforeEach
     public void setUp(){
         slide = new Slide();
-        StyleFactory.fullFlushAllStyles();
         StyleFactory.getStyle(correctDefaultStyleName, correctStyleIndent, correctStyleColor, correctStyleFont, correctStyleFontSize, correctStyleLeading);
     }
 
+    @AfterEach
+    public void tearDown(){
+        StyleFactory.fullResetStyles();
+    }
     @Test
     void createTextItemCreator_noArgs_success() {
         assertDoesNotThrow(() -> {
@@ -109,7 +112,7 @@ public class TextItemCreatorTest {
 
     @Test
     void setText_null_success(){
-        assertThrows(NullPointerException.class, () -> {new TextItemCreator().setText(null);});
+        assertThrows(IllegalArgumentException.class, () -> {new TextItemCreator().setText(null);});
     }
 
     @Test
