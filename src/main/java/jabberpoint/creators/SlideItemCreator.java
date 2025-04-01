@@ -60,6 +60,9 @@ public abstract class SlideItemCreator {
     public abstract SlideItemCreator setLevel(int level);
 
     protected void setLevel(int level, SlideItem item){
+        if(item == null){
+            throw new IllegalArgumentException("No item provided");
+        }
         item.setLevel(level);
     }
 
@@ -80,6 +83,12 @@ public abstract class SlideItemCreator {
     }
 
     static protected String getSaveString(String name, String newContent, SlideItem item){
+        if(name == null || name.isEmpty()){
+            throw new IllegalArgumentException("Name is required");
+        }
+        if(item == null){
+            throw new IllegalArgumentException("No item provided");
+        }
         String[] defaultValuesArray = {
                 Integer.toString(item.getLevel()),
                 Integer.toString(item.getX()),

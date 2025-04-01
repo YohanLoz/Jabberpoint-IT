@@ -28,6 +28,15 @@ public class Style {
 	public int id;
 
 	public Style(String name, int indent, Color color, Font font, int fontSize, int leading) {
+		if(name == null || name.isEmpty()) {
+			throw new IllegalArgumentException("No name provided");
+		}
+		if(color == null){
+			throw new IllegalArgumentException("No color provided");
+		}
+		if(font == null){
+			throw new IllegalArgumentException("No font provided");
+		}
 		this.name = name;
 		this.indent = indent;
 		this.color = color;
