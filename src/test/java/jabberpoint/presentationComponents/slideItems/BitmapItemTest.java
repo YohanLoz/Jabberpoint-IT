@@ -1,4 +1,4 @@
-package jabberpoint.presentationComponents;
+package jabberpoint.presentationComponents.slideItems;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +11,7 @@ public class BitmapItemTest {
 
     @BeforeEach
     void setup() {
-        bitmapItem = new BitmapItem(1, "Something"); //null name causes an error
+        bitmapItem = new BitmapItem(); //null name causes an error
     }
 
     @Test
@@ -24,7 +24,9 @@ public class BitmapItemTest {
     @Test
     void clone_bitmapItemWithLevel_shouldReturnIdenticalItem()
     {
-        bitmapItem = new BitmapItem(5, "SomethingSomething");
+        bitmapItem = new BitmapItem();
+        bitmapItem.setLevel(1);
+        bitmapItem.setImageName("Something");
 
         BitmapItem newItem = (BitmapItem) bitmapItem.clone();
         assertEquals(bitmapItem.getLevel(), newItem.getLevel());

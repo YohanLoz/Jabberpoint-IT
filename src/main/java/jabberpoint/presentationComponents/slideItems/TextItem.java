@@ -1,6 +1,9 @@
-package jabberpoint.presentationComponents;
+package jabberpoint.presentationComponents.slideItems;
 
-import jabberpoint.Style;
+import jabberpoint.creators.TextItemCreator;
+import jabberpoint.presentationComponents.Slide;
+import jabberpoint.style.Style;
+import jabberpoint.style.StyleFactory;
 
 import java.awt.Rectangle;
 import java.awt.Graphics;
@@ -30,37 +33,40 @@ import java.util.ArrayList;
 
 public class TextItem extends SlideItem {
 	private String text;
-	
+
 	private static final String EMPTYTEXT = "No Text Given";
 
-// a textitem of level level, with the text string
-	public TextItem(int level, String string) {
-		super(level);
-		text = string;
-	}
+	private int styleId;
 
 // an empty textitem
 	public TextItem() {
-		this(0, EMPTYTEXT);
+		super();
 	}
 
 // give the text
 	public String getText() {
 		return text == null ? "" : text;
 	}
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public void setStyleId(int styleId) {
+		this.styleId = styleId;
+	}
 
 // geef de AttributedString voor het item
-	public AttributedString getAttributedString(Style style, float scale) {
+	public AttributedString getAttributedString(float scale) {
 		AttributedString attrStr = new AttributedString(getText());
-		attrStr.addAttribute(TextAttribute.FONT, style.getFont(scale), 0, text.length());
+		attrStr.addAttribute(TextAttribute.FONT, getStyle().getFittedFont(scale), 0, text.length());
 		return attrStr;
 	}
 
 // give the bounding box of the item
 	public Rectangle getBoundingBox(Graphics g, ImageObserver observer, 
-			float scale, Style myStyle) {
-		List<TextLayout> layouts = getLayouts(g, myStyle, scale);
-		int xsize = 0, ysize = (int) (myStyle.leading * scale);
+			float scale) {
+		List<TextLayout> layouts = getLayouts(g, scale);
+		int xsize = 0, ysize = (int) (getStyle().leading * scale);
 		Iterator<TextLayout> iterator = layouts.iterator();
 		while (iterator.hasNext()) {
 			TextLayout layout = iterator.next();
@@ -73,20 +79,19 @@ public class TextItem extends SlideItem {
 			}
 			ysize += layout.getLeading() + layout.getDescent();
 		}
-		return new Rectangle((int) (myStyle.indent*scale), 0, xsize, ysize );
+		return new Rectangle((int) (getStyle().indent*scale), 0, xsize, ysize );
 	}
 
 // draw the item
-	public void draw(int x, int y, float scale, Graphics g,
-                     Style myStyle, ImageObserver o) {
+	public void draw(float scale, Graphics g, ImageObserver o) {
 		if (text == null || text.length() == 0) {
 			return;
 		}
-		List<TextLayout> layouts = getLayouts(g, myStyle, scale);
-		Point pen = new Point(x + (int)(myStyle.indent * scale), 
-				y + (int) (myStyle.leading * scale));
+		List<TextLayout> layouts = getLayouts(g, scale);
+		Point pen = new Point(getX() + (int)(getStyle().indent * scale),
+				getY() + (int) (getStyle().leading * scale));
 		Graphics2D g2d = (Graphics2D)g;
-		g2d.setColor(myStyle.color);
+		g2d.setColor(getStyle().color);
 		Iterator<TextLayout> it = layouts.iterator();
 		while (it.hasNext()) {
 			TextLayout layout = it.next();
@@ -98,16 +103,21 @@ public class TextItem extends SlideItem {
 
 	@Override
 	public SlideItem clone() {
-		return new TextItem(this.getLevel(), this.text);
+		TextItem cloneItem = new TextItem();
+		cloneItem.setLevel(getLevel());
+		cloneItem.setText(getText());
+		cloneItem.setX(getX());
+		cloneItem.setY(getY());
+		return cloneItem;
 	}
 
-	private List<TextLayout> getLayouts(Graphics g, Style s, float scale) {
+	private List<TextLayout> getLayouts(Graphics g, float scale) {
 		List<TextLayout> layouts = new ArrayList<TextLayout>();
-		AttributedString attrStr = getAttributedString(s, scale);
+		AttributedString attrStr = getAttributedString(scale);
     	Graphics2D g2d = (Graphics2D) g;
     	FontRenderContext frc = g2d.getFontRenderContext();
     	LineBreakMeasurer measurer = new LineBreakMeasurer(attrStr.getIterator(), frc);
-    	float wrappingWidth = (Slide.WIDTH - s.indent) * scale;
+    	float wrappingWidth = (Slide.WIDTH - getStyle().indent) * scale;
     	while (measurer.getPosition() < getText().length()) {
     		TextLayout layout = measurer.nextLayout(wrappingWidth);
     		layouts.add(layout);
@@ -117,5 +127,14 @@ public class TextItem extends SlideItem {
 
 	public String toString() {
 		return "presentationComponents.TextItem[" + getLevel()+","+getText()+"]";
+	}
+
+	public Style getStyle(){
+		return StyleFactory.getStyleById(this.styleId);
+	}
+
+	@Override
+	public String getSaveString() {
+		return TextItemCreator.getSaveString(this);
 	}
 }

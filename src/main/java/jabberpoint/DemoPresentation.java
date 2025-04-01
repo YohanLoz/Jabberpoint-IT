@@ -1,8 +1,14 @@
 package jabberpoint;
 
-import jabberpoint.presentationComponents.BitmapItem;
+import jabberpoint.creators.BitmapItemCreator;
+import jabberpoint.creators.TextItemCreator;
+import jabberpoint.presentationComponents.slideItems.BitmapItem;
 import jabberpoint.presentationComponents.Presentation;
 import jabberpoint.presentationComponents.Slide;
+import jabberpoint.style.Style;
+import jabberpoint.style.StyleFactory;
+
+import java.awt.*;
 
 /** A built in demo-presentation
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
@@ -21,37 +27,41 @@ class DemoPresentation extends Accessor {
 		Slide slide;
 		slide = new Slide();
 		slide.setTitle("JabberPoint");
-		slide.append(1, "The Java presentationComponents.Presentation Tool");
-		slide.append(2, "Copyright (c) 1996-2000: Ian Darwin");
-		slide.append(2, "Copyright (c) 2000-now:");
-		slide.append(2, "Gert Florijn andn Sylvia Stuurman");
-		slide.append(4, "Starting JabberPoint without a filename");
-		slide.append(4, "shows this presentation");
-		slide.append(1, "Navigate:");
-		slide.append(3, "Next slide: PgDn or Enter");
-		slide.append(3, "Previous slide: PgUp or up-arrow");
-		slide.append(3, "Quit: q or Q");
+		StyleFactory.getStyle("default", 12, Color.black, new Font("Comic Sans MS", Font.PLAIN, 12), 50, 10);
+		StyleFactory.getStyle("cursive", 12, Color.black, new Font("Forte", Font.ITALIC, 12), 50, 10);
+		StyleFactory.getStyle("IMPACT", 12, Color.black, new Font("Impact", Font.BOLD, 12), 50, 10);
+		StyleFactory.getStyle("impactRed", 12, Color.red, new Font("Impact", Font.PLAIN, 12), 50, 10);
+		StyleFactory.getStyle("impactGreen", 12, Color.green, new Font("Impact", Font.PLAIN, 12), 50, 10);
+		StyleFactory.getStyle("impactBlue", 12, Color.blue, new Font("Impact", Font.PLAIN, 12), 50, 10);
+
+
+		new TextItemCreator().setStyle("default").setText("The Java presentationComponents.Presentation Tool!").appendToSlide(slide);
+
+		new TextItemCreator().setStyle("cursive").setText("Cursive edition!").setCoords(10, 200).appendToSlide(slide);
+
+		new TextItemCreator().setStyle("IMPACT").setText("IMPACT EDITION!").setCoords(10, 400).appendToSlide(slide);
+
+
+		new TextItemCreator().setStyle("IMPACT").setText("And now on the right side!!").setCoords(500, 250).appendToSlide(slide);
+
 		presentation.append(slide);
 
-		slide = new Slide();
-		slide.setTitle("Demonstration of levels and stijlen");
-		slide.append(1, "Level 1");
-		slide.append(2, "Level 2");
-		slide.append(1, "Again level 1");
-		slide.append(1, "Level 1 has style number 1");
-		slide.append(2, "Level 2 has style number  2");
-		slide.append(3, "This is how level 3 looks like");
-		slide.append(4, "And this is level 4");
-		presentation.append(slide);
 
 		slide = new Slide();
-		slide.setTitle("The third slide");
-		slide.append(1, "To open a new presentation,");
-		slide.append(2, "use File->Open from the menu.");
-		slide.append(1, " ");
-		slide.append(1, "This is the end of the presentation.");
-		slide.append(new BitmapItem(1, "JabberPoint.jpg"));
+
+		new TextItemCreator().setStyle("impactRed").setLevel(-1).setText("levels just work!").setCoords(30, 300).appendToSlide(slide);
+		new TextItemCreator().setStyle("impactGreen").setLevel(0).setText("levels just work!").setCoords(35, 300).appendToSlide(slide);
+		new TextItemCreator().setStyle("impactBlue").setLevel(1).setText("levels just work!").setCoords(40, 300).appendToSlide(slide);
+
+		new BitmapItemCreator().setImage("serclogo_fc.jpg").setScale(2).setCoords(600, 400).appendToSlide(slide);
+
+		new TextItemCreator().setStyle("default").setText("images too!~").setCoords(600, 370).setLevel(1).appendToSlide(slide);
+
 		presentation.append(slide);
+
+
+
+
 	}
 
 	public void saveFile(Presentation presentation, String unusedFilename) {

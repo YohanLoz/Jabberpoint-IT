@@ -25,7 +25,7 @@ public class OpenPresentationCommand extends Command
         presentation.clear();
         Accessor xmlAccessor = new XMLAccessor();
         try {
-            String TESTFILE = "test.xml";
+            String TESTFILE = "dump.xml";
             xmlAccessor.loadFile(presentation, TESTFILE);
             presentation.setSlideNumber(0);
         } catch (IOException exc) {

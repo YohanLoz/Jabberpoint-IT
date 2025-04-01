@@ -1,4 +1,4 @@
-package jabberpoint.presentationComponents;
+package jabberpoint.presentationComponents.slideItems;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +25,9 @@ public class TextItemTest {
     @Test
     void clone_textItemWithLevel_shouldReturnIdenticalTextItem()
     {
-        textItem = new TextItem(5, "SomethingSomething");
+        textItem = new TextItem();
+        textItem.setLevel(1);
+        textItem.setText("Something");
 
         TextItem newItem = (TextItem) textItem.clone();
         assertEquals(textItem.getLevel(), newItem.getLevel());
