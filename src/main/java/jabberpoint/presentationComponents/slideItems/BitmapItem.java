@@ -1,6 +1,6 @@
-package jabberpoint.presentationComponents;
+package jabberpoint.presentationComponents.slideItems;
 
-import jabberpoint.Style;
+import jabberpoint.creators.BitmapItemCreator;
 
 import java.awt.Rectangle;
 import java.awt.Graphics;
@@ -27,14 +27,22 @@ import java.io.IOException;
 public class BitmapItem extends SlideItem {
   private BufferedImage bufferedImage;
   private String imageName;
+  private Float size = 1f;
   
   protected static final String FILE = "File ";
   protected static final String NOTFOUND = " not found";
 
-// level is equal to item-level; name is the name of the file with the Image
-	public BitmapItem(int level, String name) {
-		super(level);
-		imageName = name;
+	public BitmapItem() {
+		super();
+	}
+
+// give the filename of the image
+	public String getName() {
+		return imageName;
+	}
+
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
 		try {
 			bufferedImage = ImageIO.read(new File(imageName));
 		}
@@ -43,33 +51,33 @@ public class BitmapItem extends SlideItem {
 		}
 	}
 
-// An empty bitmap-item
-	public BitmapItem() {
-		this(0, null);
+	public Float getSize() {
+		return size;
 	}
-
-// give the filename of the image
-	public String getName() {
-		return imageName;
-	}
-
-// give the  bounding box of the image
-	public Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style myStyle) {
-		return new Rectangle((int) (myStyle.indent * scale), 0,
-				(int) (bufferedImage.getWidth(observer) * scale),
-				((int) (myStyle.leading * scale)) + 
-				(int) (bufferedImage.getHeight(observer) * scale));
+	public void setSize(Float size) {
+		this.size = size;
 	}
 
 // draw the image
-	public void draw(int x, int y, float scale, Graphics g, Style myStyle, ImageObserver observer) {
-		int width = x + (int) (myStyle.indent * scale);
-		int height = y + (int) (myStyle.leading * scale);
-		g.drawImage(bufferedImage, width, height,(int) (bufferedImage.getWidth(observer)*scale),
-                (int) (bufferedImage.getHeight(observer)*scale), observer);
+	public void draw(float scale, Graphics g, ImageObserver observer) {
+		Rectangle boundingBox = getBoundingBox(g, observer,scale);
+		g.drawImage(bufferedImage, getX(), getY(), boundingBox.width, boundingBox.height, observer);
+	}
+
+	// give the  bounding box of the image
+	public Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale) {
+		return new Rectangle((int) (1 * scale), 0,
+				(int) (bufferedImage.getWidth(observer) * scale * size),
+				((int) (1 * scale)) +
+						(int) (bufferedImage.getHeight(observer) * scale * size));
 	}
 
 	public String toString() {
 		return "presentationComponents.BitmapItem[" + getLevel() + "," + imageName + "]";
+	}
+
+	@Override
+	public String getSaveString() {
+		return BitmapItemCreator.getSaveString(this);
 	}
 }

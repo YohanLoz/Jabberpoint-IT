@@ -3,9 +3,10 @@ package jabberpoint.presentationComponents;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
+import java.util.Comparator;
 import java.util.Vector;
 
-import jabberpoint.Style;
+import jabberpoint.presentationComponents.slideItems.SlideItem;
 
 /** <p>A slide. This class has a drawing functionality.</p>
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
@@ -42,11 +43,6 @@ public class Slide {
 		title = newTitle;
 	}
 
-	// Create presentationComponents.TextItem of String, and add the presentationComponents.TextItem
-	public void append(int level, String message) {
-		append(new TextItem(level, message));
-	}
-
 	// give the  presentationComponents.SlideItem
 	public SlideItem getSlideItem(int number) {
 		return (SlideItem)items.elementAt(number);
@@ -65,17 +61,11 @@ public class Slide {
 	// draw the slide
 	public void draw(Graphics g, Rectangle area, ImageObserver view) {
 		float scale = getScale(area);
-	    int y = area.y;
-	// Title is handled separately
-	    SlideItem slideItem = new TextItem(0, getTitle());
-	    Style style = Style.getStyle(slideItem.getLevel());
-	    slideItem.draw(area.x, y, scale, g, style, view);
-	    y += slideItem.getBoundingBox(g, view, scale, style).height;
-	    for (int number=0; number<getSize(); number++) {
-	      slideItem = (SlideItem)getSlideItems().elementAt(number);
-	      style = Style.getStyle(slideItem.getLevel());
-	      slideItem.draw(area.x, y, scale, g, style, view);
-	      y += slideItem.getBoundingBox(g, view, scale, style).height;
+
+		items.sort(Comparator.comparingInt(SlideItem::getLevel));
+
+	    for (SlideItem slideItem: items){
+			slideItem.draw(scale, g, view);
 	    }
 	  }
 
