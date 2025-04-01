@@ -10,17 +10,100 @@ import java.util.regex.Pattern;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class StyleFactoryTest {
-    String defaultName = "default";
+
+    String correctDefaultStyleName = "default";
+    String correctStyleName = "newDefault";
+    int correctStyleIndent = 12;
+    Color correctStyleColor = Color.black;
+    Font correctStyleFont = new Font("Comic Sans MS", Font.PLAIN, 12);
+    int correctStyleFontSize = 50;
+    int correctStyleLeading = 10;
+
+    static final String[] correctArgsStyle = {"default","12#000000","Comic Sans MS-0-12","50","10"};
+
     Style style;
     @BeforeEach
     void setUp() {
         StyleFactory.fullFlushAllStyles();
-        style = StyleFactory.getStyle(defaultName, 12, Color.black, new Font("Comic Sans MS", Font.PLAIN, 12), 50, 10);
+        style = StyleFactory.getStyle(correctDefaultStyleName, correctStyleIndent, correctStyleColor, correctStyleFont, correctStyleFontSize, correctStyleLeading);
     }
 
     @Test
+    void getStyleFromArgs_normal_returnsStyle(){
+        assertEquals(Style.class, StyleFactory.getStyleFromArgs(correctArgsStyle).getClass());
+    }
+
+    @Test
+    void getStyleFromArgs_null_throwsIllegalArgumentException(){
+        assertThrows(IllegalArgumentException.class, () -> StyleFactory.getStyleFromArgs(null));
+    }
+
+    @Test
+    void getStyleFromArgs_empty_throwsIllegalArgumentException(){
+        assertThrows(IllegalArgumentException.class, () -> StyleFactory.getStyleFromArgs(new String[0]));
+    }
+
+    @Test
+    void getStyle_withName_normal_returnsStyle(){
+        assertEquals(Style.class, StyleFactory.getStyle("aaa", correctStyleIndent, correctStyleColor, correctStyleFont, correctStyleFontSize, correctStyleLeading).getClass());
+    }
+
+    @Test
+    void getStyle_withName_nullName_doesNotThrow(){
+        assertDoesNotThrow(()->{StyleFactory.getStyle(null, correctStyleIndent, correctStyleColor, correctStyleFont, correctStyleFontSize, correctStyleLeading).getClass();});
+    }
+
+    @Test
+    void getStyle_withName_emptyName_doesNotThrow(){
+        assertDoesNotThrow(()->{StyleFactory.getStyle("", correctStyleIndent, correctStyleColor, correctStyleFont, correctStyleFontSize, correctStyleLeading).getClass();});
+    }
+
+    @Test
+    void getStyle_withName_nullColor_throwsIllegalArgumentException(){
+        assertThrows(IllegalArgumentException.class, ()->{StyleFactory.getStyle("aaa", correctStyleIndent, null, correctStyleFont, correctStyleFontSize, correctStyleLeading);});
+    }
+
+    @Test
+    void getStyle_withName_nullFont_throwsIllegalArgumentException(){
+        assertThrows(IllegalArgumentException.class, ()->{StyleFactory.getStyle("aaa", correctStyleIndent, correctStyleColor, null, correctStyleFontSize, correctStyleLeading);});
+    }
+
+    @Test
+    void getStyle_withName_alreadyExists_doesNotCreateNew(){
+        StyleFactory.getStyle(correctDefaultStyleName, correctStyleIndent, correctStyleColor, correctStyleFont, correctStyleFontSize, correctStyleLeading);
+        assertEquals(1, StyleFactory.getNumberOfStyles());
+    }
+
+    @Test
+    void getStyle_withName_doesNotAlreadyExist_CreatesNew(){
+        StyleFactory.getStyle("aaa", correctStyleIndent, correctStyleColor, correctStyleFont, correctStyleFontSize, correctStyleLeading);
+        assertEquals(2, StyleFactory.getNumberOfStyles());
+    }
+
+    @Test
+    void getStyle_withName_sameNameDifferentValues_UpdatesOldStyle(){
+        int newFontSize = 99;
+        StyleFactory.getStyle(correctDefaultStyleName, correctStyleIndent, correctStyleColor, correctStyleFont, newFontSize, correctStyleLeading);
+        assertEquals(newFontSize, StyleFactory.getStyleByName(correctDefaultStyleName).fontSize);
+        assertEquals(1, StyleFactory.getNumberOfStyles());
+    }
+
+    @Test
+    void getStyle_withoutName_alreadyExists_doesNotCreateNew(){
+        StyleFactory.getStyle(correctStyleIndent, correctStyleColor, correctStyleFont, correctStyleFontSize, correctStyleLeading);
+        assertEquals(1, StyleFactory.getNumberOfStyles());
+    }
+
+    @Test
+    void getStyle_withoutName_doesNotAlreadyExist_CreatesNew(){
+        StyleFactory.getStyle(44, correctStyleColor, correctStyleFont, correctStyleFontSize, correctStyleLeading);
+        assertEquals(2, StyleFactory.getNumberOfStyles());
+    }
+
+
+    @Test
     void getStyleByName_normal_success() {
-        assertEquals(Style.class, StyleFactory.getStyleByName(defaultName).getClass());
+        assertEquals(Style.class, StyleFactory.getStyleByName(correctDefaultStyleName).getClass());
     }
     @Test
     void getStyleByName_notExist_success() {
@@ -33,8 +116,8 @@ public class StyleFactoryTest {
 
     @Test
     void getIdByNameAndGetNameById_success() {
-        int id = StyleFactory.getIdByName(defaultName);
-        assertEquals(defaultName, StyleFactory.getStyleById(id).name);
+        int id = StyleFactory.getIdByName(correctDefaultStyleName);
+        assertEquals(correctDefaultStyleName, StyleFactory.getStyleById(id).name);
     }
 
     @Test
@@ -105,6 +188,90 @@ public class StyleFactoryTest {
         assertTrue(m.find());
         assertTrue(m2.find());
         assertEquals(1, Integer.parseInt(m2.group(0))-Integer.parseInt(m.group(0)));
+    }
+
+
+    @Test
+    void getIdByName_normal_returnsId(){
+        assertEquals(style.id, StyleFactory.getIdByName(correctDefaultStyleName));
+    }
+
+    @Test
+    void getIdByName_null_throwsIllegalArgumentException(){
+        assertThrows(IllegalArgumentException.class, () -> StyleFactory.getIdByName(null));
+    }
+
+    @Test
+    void getIdByName_empty_throwsIllegalArgumentException(){
+        assertThrows(IllegalArgumentException.class, () -> StyleFactory.getIdByName(""));
+    }
+
+    @Test
+    void getIdByName_doesNotExist_throwsIllegalArgumentException(){
+        assertThrows(IllegalStateException.class, () -> StyleFactory.getIdByName("DoesNotExist"));
+    }
+
+    @Test
+    void getStyleById_normal_returnsStyle() {
+        int id = style.id;
+        assertEquals(style, StyleFactory.getStyleById(id));
+    }
+
+    @Test
+    void getStyleById_doesNotExist_returnsIllegalStateException() {
+        int id = style.id+1;
+        assertThrows(IllegalStateException.class, () -> StyleFactory.getStyleById(id));
+    }
+
+    @Test
+    void getStyleById_0_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> StyleFactory.getStyleById(0));
+    }
+
+    @Test
+    void getStyleById_negative_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> StyleFactory.getStyleById(-1));
+    }
+
+    @Test
+    void getSaveString_normal_returnsString(){
+        assertEquals(String.class, StyleFactory.getSaveString(style).getClass());
+    }
+
+    @Test
+    void getSaveString_null_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> StyleFactory.getSaveString(null));
+    }
+
+    @Test
+    void removeStyleByName_normal_removesStyle(){
+        StyleFactory.removeStyleByName(correctStyleName);
+        assertEquals(0, StyleFactory.getNumberOfStyles());
+    }
+    @Test
+    void removeStyleByName_doesNotExist_doesNothing(){
+        assertDoesNotThrow(() -> {StyleFactory.removeStyleByName(null);});
+    }
+
+    @Test
+    void removeStyleByName_null_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, ()->{StyleFactory.removeStyleByName(null);});
+    }
+
+    @Test
+    void removeStyleByName_empty_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, ()->{StyleFactory.removeStyleByName("");});
+    }
+
+    @Test
+    void getNumberOfStyles_returnsNumberOfStyles(){
+        assertEquals(1, StyleFactory.getNumberOfStyles());
+    }
+
+    @Test
+    void fullFlushAllStyles_flushesAllStyles(){
+        StyleFactory.fullFlushAllStyles();
+        assertEquals(0, StyleFactory.getNumberOfStyles());
     }
 
 }

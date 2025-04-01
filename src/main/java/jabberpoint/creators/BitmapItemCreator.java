@@ -39,11 +39,12 @@ public class BitmapItemCreator extends SlideItemCreator {
         return this;
     }
 
-    public void appendToSlide(Slide slide) {
+    public BitmapItemCreator appendToSlide(Slide slide) {
         if(slide == null){
             throw new IllegalArgumentException("Slide cannot be null");
         }
         super.appendToSlide(slide, item);
+        return this;
     }
 
     static public String getSaveString(BitmapItem item){

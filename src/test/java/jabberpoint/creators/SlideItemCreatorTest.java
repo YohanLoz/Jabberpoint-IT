@@ -62,6 +62,4 @@ public class SlideItemCreatorTest {
         assertThrows(IllegalArgumentException.class, () -> SlideItemCreator.createSlideItem("JPEG", slide, correctStringTextItem));
     }
 
-
-
 }

@@ -71,11 +71,12 @@ public class TextItemCreator extends SlideItemCreator {
         return this;
     }
 
-    public void appendToSlide(Slide slide) {
+    public TextItemCreator appendToSlide(Slide slide) {
         if(slide == null){
             throw new IllegalArgumentException("No slide provided");
         }
         super.appendToSlide(slide, item);
+        return this;
     }
 
     @Override

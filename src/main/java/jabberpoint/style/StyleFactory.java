@@ -13,6 +13,26 @@ public class StyleFactory {
         styles = new ArrayList<Style>();
     }
 
+    public static Style getStyleFromArgs(String[] args){
+        if(args == null || args.length == 0){
+            throw new IllegalArgumentException("No args provided");
+        }
+        return getStyle(args[0],
+                Integer.parseInt(args[1]),
+                Color.decode(args[2]),
+                decodeFontString(args[3]),
+                Integer.parseInt(args[4]),
+                Integer.parseInt(args[5]));
+    }
+
+    private static Font decodeFontString(String string) {
+        if(string == null){
+            throw new IllegalArgumentException("No string provided");
+        }
+        String[] split = string.split("-");
+        return new Font(split[0], Integer.parseInt(split[1]), Integer.parseInt(split[2]));
+    }
+
     // can also update style by name
     public static Style getStyle(String name, int indent, Color color, Font font, int fontSize, int leading){
         // if name is missing: redirect to non-named version
@@ -83,7 +103,7 @@ public class StyleFactory {
                 return style;
             }
         }
-        return null;
+        throw new IllegalStateException("ID for style does not exist");
     }
 
     public static int getIdByName(String name) {
@@ -135,27 +155,6 @@ public class StyleFactory {
         return String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
     }
 
-
-    public static Style getStyleFromArgs(String[] args){
-        if(args == null || args.length == 0){
-            throw new IllegalArgumentException("No args provided");
-        }
-        return getStyle(args[0],
-                Integer.parseInt(args[1]),
-                Color.decode(args[2]),
-                decodeFontString(args[3]),
-                Integer.parseInt(args[4]),
-                Integer.parseInt(args[5]));
-    }
-
-    private static Font decodeFontString(String string) {
-        if(string == null){
-            throw new IllegalArgumentException("No string provided");
-        }
-        String[] split = string.split("-");
-        return new Font(split[0], Integer.parseInt(split[1]), Integer.parseInt(split[2]));
-    }
-
     public static void removeStyleByName(String name){
         if(name==null || name.isEmpty()){
             return;
@@ -165,6 +164,10 @@ public class StyleFactory {
             return;
         }
         styles.remove(style);
+    }
+
+    public static int getNumberOfStyles(){
+        return styles.size();
     }
 
     public static void fullFlushAllStyles(){
