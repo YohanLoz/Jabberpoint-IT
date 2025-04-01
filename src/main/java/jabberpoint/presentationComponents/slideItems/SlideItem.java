@@ -61,5 +61,8 @@ public abstract class SlideItem {
 	public abstract void draw(float scale,
                               Graphics g, ImageObserver observer);
 
+	// Clone the item
+	public abstract SlideItem clone();
+
 	public abstract String getSaveString();
 }

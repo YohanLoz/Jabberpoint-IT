@@ -12,8 +12,8 @@ import java.io.IOException;
 public class SavePresentationCommand extends Command
 {
 
-    protected Frame parent;
-    protected Presentation presentation;
+    private Frame parent;
+    private Presentation presentation;
 
     public SavePresentationCommand(Frame parent, Presentation presentation)
     {

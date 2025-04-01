@@ -2,12 +2,12 @@ package jabberpoint.command.commands;
 
 import jabberpoint.presentationComponents.Presentation;
 
-public class ExitPresentationCommand extends Command
+public class ExitCommand extends Command
 {
 
-    protected Presentation presentation;
+    private Presentation presentation;
 
-    public ExitPresentationCommand(Presentation presentation)
+    public ExitCommand(Presentation presentation)
     {
         this.presentation  = presentation;
     }

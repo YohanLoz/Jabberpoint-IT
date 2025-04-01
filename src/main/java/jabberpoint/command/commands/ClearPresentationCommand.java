@@ -6,8 +6,8 @@ import java.awt.*;
 
 public class ClearPresentationCommand extends Command{
 
-    protected Frame parent;
-    protected Presentation presentation;
+    private Frame parent;
+    private Presentation presentation;
 
     public ClearPresentationCommand(Frame parent, Presentation presentation)
     {

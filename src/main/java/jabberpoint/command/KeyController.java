@@ -1,12 +1,11 @@
 package jabberpoint.command;
 
 import jabberpoint.command.commands.Command;
-import jabberpoint.command.commands.ExitPresentationCommand;
+import jabberpoint.command.commands.ExitCommand;
 import jabberpoint.command.commands.NextSlideCommand;
 import jabberpoint.command.commands.PreviousSlideCommand;
 import jabberpoint.presentationComponents.Presentation;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
 
@@ -24,12 +23,12 @@ public class KeyController extends KeyAdapter {
 
 	private final Command nextSlideCommand;
 	private final Command previousSlideCommand;
-	private final Command exitPresentationCommand;
+	private final Command exitCommand;
 
 	public KeyController(Presentation p) {
 		nextSlideCommand = new NextSlideCommand(p);
 		previousSlideCommand = new PreviousSlideCommand(p);
-		exitPresentationCommand = new ExitPresentationCommand(p);
+		exitCommand = new ExitCommand(p);
 	}
 
 	public void keyPressed(KeyEvent keyEvent) {
@@ -50,7 +49,7 @@ public class KeyController extends KeyAdapter {
 			case KeyEvent.VK_ESCAPE:
 			case 'q':
 			case 'Q':
-				exitPresentationCommand.execute();
+				exitCommand.execute();
 				break; // Probably never reached!!
 
 			default:

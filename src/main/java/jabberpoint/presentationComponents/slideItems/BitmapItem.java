@@ -42,7 +42,11 @@ public class BitmapItem extends SlideItem {
 	}
 
 	public void setImageName(String imageName) {
+		if (imageName == null || imageName.isEmpty()) {
+			imageName = "NoImage";
+		}
 		this.imageName = imageName;
+
 		try {
 			bufferedImage = ImageIO.read(new File(imageName));
 		}
@@ -70,6 +74,15 @@ public class BitmapItem extends SlideItem {
 				(int) (bufferedImage.getWidth(observer) * scale * size),
 				((int) (1 * scale)) +
 						(int) (bufferedImage.getHeight(observer) * scale * size));
+	}
+
+	@Override
+	public SlideItem clone() {
+		BitmapItem cloneItem = new BitmapItem();
+		cloneItem.setLevel(getLevel());
+		cloneItem.setImageName(this.imageName);
+		cloneItem.setSize(this.size);
+		return cloneItem;
 	}
 
 	public String toString() {

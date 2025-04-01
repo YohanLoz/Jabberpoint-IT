@@ -101,6 +101,16 @@ public class TextItem extends SlideItem {
 		}
 	  }
 
+	@Override
+	public SlideItem clone() {
+		TextItem cloneItem = new TextItem();
+		cloneItem.setLevel(getLevel());
+		cloneItem.setText(getText());
+		cloneItem.setX(getX());
+		cloneItem.setY(getY());
+		return cloneItem;
+	}
+
 	private List<TextLayout> getLayouts(Graphics g, float scale) {
 		List<TextLayout> layouts = new ArrayList<TextLayout>();
 		AttributedString attrStr = getAttributedString(scale);

@@ -4,7 +4,7 @@ import jabberpoint.presentationComponents.Presentation;
 
 public class PreviousSlideCommand extends Command{
 
-    protected Presentation presentation;
+    private Presentation presentation;
 
     public PreviousSlideCommand(Presentation presentation)
     {

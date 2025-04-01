@@ -8,7 +8,8 @@ import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MenuControllerTest {
+public class MenuControllerTest
+{
 
     Frame frame;
     Presentation presentation;
