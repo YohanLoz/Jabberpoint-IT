@@ -27,6 +27,15 @@ jobs:
         java-version: '20'
         distribution: 'temurin'
         cache: maven
+
+    - name: Set display for JFrame elements
+      run: |
+        export DISPLAY=:0.0
+
+    - run: |
+        export DISPLAY=:1
+        DISPLAY=localhost:0.0    
+
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
