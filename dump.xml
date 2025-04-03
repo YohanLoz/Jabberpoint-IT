@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE presentation SYSTEM "jabberpoint.dtd">
+<presentation>
+<showtitle>Demo presentationComponents.Presentation</showtitle>
+<slide>
+<title>JabberPoint</title>
+<item name="TextItem">0,,,0,,,0,,,The Java presentationComponents.Presentation Tool!,,,default,,,12,,,#000000,,,Comic Sans MS-0-12,,,50,,,10</item>
+<item name="TextItem">0,,,10,,,200,,,Cursive edition!,,,cursive,,,12,,,#000000,,,Forte-2-12,,,50,,,10</item>
+<item name="TextItem">0,,,10,,,400,,,IMPACT EDITION!,,,IMPACT,,,12,,,#000000,,,Impact-1-12,,,50,,,10</item>
+<item name="TextItem">0,,,500,,,250,,,And now on the right side!!,,,IMPACT,,,12,,,#000000,,,Impact-1-12,,,50,,,10</item>
+</slide>
+<slide>
+<title>null</title>
+<item name="TextItem">-1,,,30,,,300,,,levels just work!,,,impactRed,,,12,,,#ff0000,,,Impact-0-12,,,50,,,10</item>
+<item name="TextItem">0,,,35,,,300,,,levels just work!,,,impactGreen,,,12,,,#00ff00,,,Impact-0-12,,,50,,,10</item>
+<item name="TextItem">1,,,40,,,300,,,levels just work!,,,impactBlue,,,12,,,#0000ff,,,Impact-0-12,,,50,,,10</item>
+<item name="BitmapItem">0,,,600,,,400,,,serclogo_fc.jpg,,,2.0</item>
+<item name="TextItem">1,,,600,,,370,,,images too!~,,,default,,,12,,,#000000,,,Comic Sans MS-0-12,,,50,,,10</item>
+</slide>
+</presentation>
