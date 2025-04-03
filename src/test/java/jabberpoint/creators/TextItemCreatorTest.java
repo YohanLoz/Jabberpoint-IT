@@ -118,7 +118,7 @@ public class TextItemCreatorTest {
 
     @Test
     void setText_normal_success() {
-        item = new TextItemCreator().setText("test").getItem();
+        item = new TextItemCreator().setText("test").setStyle(correctDefaultStyleName).getItem();
         assertNotNull(item.getStyle());
         assertNotEquals("", item.getText());
     }
@@ -153,7 +153,7 @@ public class TextItemCreatorTest {
 
     @Test
     void getSaveString_normal_returnsString() {
-        item = new TextItemCreator().getItem();
+        item = new TextItemCreator().setStyle(correctDefaultStyleName).getItem();
         assertEquals(String.class, TextItemCreator.getSaveString(item).getClass());
     }
 

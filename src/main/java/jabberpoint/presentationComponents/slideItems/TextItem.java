@@ -35,6 +35,7 @@ public class TextItem extends SlideItem {
     // an empty textitem
     public TextItem() {
         super();
+        this.styleId = -1;
     }
 
     // give the text
@@ -52,6 +53,9 @@ public class TextItem extends SlideItem {
 
     // geef de AttributedString voor het item
     public AttributedString getAttributedString(float scale) {
+        if (scale <= 0) {
+            throw new IllegalArgumentException("scale cannot be null or negative");
+        }
         AttributedString attrStr = new AttributedString(getText());
         attrStr.addAttribute(TextAttribute.FONT, getStyle().getFittedFont(scale), 0, text.length());
         return attrStr;
@@ -60,6 +64,15 @@ public class TextItem extends SlideItem {
     // give the bounding box of the item
     public Rectangle getBoundingBox(Graphics g, ImageObserver observer,
                                     float scale) {
+        if (g == null) {
+            throw new IllegalArgumentException("graphics cannot be null");
+        }
+        if (observer == null) {
+            throw new IllegalArgumentException("imageObserver cannot be null");
+        }
+        if (scale <= 0) {
+            throw new IllegalArgumentException("scale cannot be negative");
+        }
         List<TextLayout> layouts = getLayouts(g, scale);
         int xsize = 0, ysize = (int) (getStyle().leading * scale);
         Iterator<TextLayout> iterator = layouts.iterator();
@@ -79,6 +92,12 @@ public class TextItem extends SlideItem {
 
     // draw the item
     public void draw(float scale, Graphics g, ImageObserver o) {
+        if (g == null) {
+            throw new IllegalArgumentException("graphics cannot be null");
+        }
+        if (o == null) {
+            throw new IllegalArgumentException("imageObserver cannot be null");
+        }
         if (text == null || text.length() == 0) {
             return;
         }
@@ -103,10 +122,17 @@ public class TextItem extends SlideItem {
         cloneItem.setText(getText());
         cloneItem.setX(getX());
         cloneItem.setY(getY());
+        cloneItem.setStyleId(this.styleId);
         return cloneItem;
     }
 
     private List<TextLayout> getLayouts(Graphics g, float scale) {
+        if (g == null) {
+            throw new IllegalArgumentException("graphics cannot be null");
+        }
+        if (scale <= 0) {
+            throw new IllegalArgumentException("scale cannot be 0 or negative");
+        }
         List<TextLayout> layouts = new ArrayList<TextLayout>();
         AttributedString attrStr = getAttributedString(scale);
         Graphics2D g2d = (Graphics2D) g;
@@ -125,11 +151,17 @@ public class TextItem extends SlideItem {
     }
 
     public Style getStyle() {
+        if (this.styleId == -1) {
+            throw new IllegalStateException("No style has been ");
+        }
         return StyleFactory.getStyleById(this.styleId);
     }
 
     @Override
     public String getSaveString() {
+        if (this.styleId == -1) {
+            throw new IllegalStateException("No style has been initialized");
+        }
         return TextItemCreator.getSaveString(this);
     }
 }
