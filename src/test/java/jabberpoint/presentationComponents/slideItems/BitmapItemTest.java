@@ -1,9 +1,9 @@
 package jabberpoint.presentationComponents.slideItems;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BitmapItemTest {
 
@@ -15,15 +15,13 @@ public class BitmapItemTest {
     }
 
     @Test
-    void clone_emptyBitmapItem_shouldReturnEmptyBitmapItem()
-    {
+    void clone_emptyBitmapItem_shouldReturnEmptyBitmapItem() {
         BitmapItem newItem = (BitmapItem) bitmapItem.clone();
         assertEquals(bitmapItem.getLevel(), newItem.getLevel());
     }
 
     @Test
-    void clone_bitmapItemWithLevel_shouldReturnIdenticalItem()
-    {
+    void clone_bitmapItemWithLevel_shouldReturnIdenticalItem() {
         bitmapItem = new BitmapItem();
         bitmapItem.setLevel(1);
         bitmapItem.setImageName("Something");

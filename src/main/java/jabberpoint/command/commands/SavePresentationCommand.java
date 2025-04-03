@@ -5,18 +5,15 @@ import jabberpoint.XMLAccessor;
 import jabberpoint.presentationComponents.Presentation;
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.io.IOException;
 
-public class SavePresentationCommand extends Command
-{
+public class SavePresentationCommand extends Command {
 
     private Frame parent;
     private Presentation presentation;
 
-    public SavePresentationCommand(Frame parent, Presentation presentation)
-    {
+    public SavePresentationCommand(Frame parent, Presentation presentation) {
         this.parent = parent;
         this.presentation = presentation;
     }

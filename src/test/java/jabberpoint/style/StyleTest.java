@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StyleTest {
     static String correctName = "default";
@@ -21,8 +22,9 @@ public class StyleTest {
     void setUp() {
         style = new Style(correctName, correctIndent, correctColor, correctFont, correctFontSize, correctLeading);
     }
+
     @Test
-    void getSet_normal_success(){
+    void getSet_normal_success() {
         assertEquals(correctName, style.name);
         assertEquals(correctIndent, style.indent);
         assertEquals(correctColor, style.color);
@@ -32,33 +34,38 @@ public class StyleTest {
     }
 
     @Test
-    void idIncrements_2times_success(){
+    void idIncrements_2times_success() {
         Style style1 = new Style(correctName, correctIndent, correctColor, correctFont, correctFontSize, correctLeading);
         Style style2 = new Style(correctName, correctIndent, correctColor, correctFont, correctFontSize, correctLeading);
 
-        assertEquals(1, style2.id-style1.id);
+        assertEquals(1, style2.id - style1.id);
     }
 
     @Test
-    void getFittedFont_returnsDuplicateFont(){
+    void getFittedFont_returnsDuplicateFont() {
         Font fittedfont = style.getFittedFont(1);
         assertEquals(style.font.getStyle(), fittedfont.getStyle());
     }
 
     @Test
-    void getFittedFont_1_success(){
+    void getFittedFont_1_success() {
         assertEquals(style.fontSize, style.getFittedFont(1).getSize());
     }
+
     @Test
-    void getFittedFont_5x_success(){
-        assertEquals(style.fontSize*5, style.getFittedFont(5).getSize());
+    void getFittedFont_5x_success() {
+        assertEquals(style.fontSize * 5, style.getFittedFont(5).getSize());
     }
+
     @Test
-    void getFittedFont_0_success(){
+    void getFittedFont_0_success() {
         assertEquals(0, style.getFittedFont(0).getSize());
     }
+
     @Test
-    void getFittedFont_neg5x_doesNotThrow(){
-        assertDoesNotThrow(()->{style.getFittedFont(-5);});
+    void getFittedFont_neg5x_doesNotThrow() {
+        assertDoesNotThrow(() -> {
+            style.getFittedFont(-5);
+        });
     }
 }

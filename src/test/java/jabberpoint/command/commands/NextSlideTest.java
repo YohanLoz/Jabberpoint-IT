@@ -1,10 +1,11 @@
 package jabberpoint.command.commands;
 
-import jabberpoint.presentationComponents.*;
-import org.junit.jupiter.api.Test;
+import jabberpoint.presentationComponents.Presentation;
+import jabberpoint.presentationComponents.Slide;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class NextSlideTest {
 
@@ -12,8 +13,7 @@ public class NextSlideTest {
     Command nextSlide;
 
     @BeforeEach
-    void setup()
-    {
+    void setup() {
 
         presentation = new Presentation();
         nextSlide = new NextSlideCommand(presentation);
@@ -21,8 +21,7 @@ public class NextSlideTest {
     }
 
     @Test
-    void nextSlide_emptyPresentation_shouldNotChangeSlideNumber()
-    {
+    void nextSlide_emptyPresentation_shouldNotChangeSlideNumber() {
         presentation.clear();
 
         nextSlide.execute();
@@ -31,8 +30,7 @@ public class NextSlideTest {
     }
 
     @Test
-    void nextSlide_singleSlide_shouldNotChangeSlideNumber()
-    {
+    void nextSlide_singleSlide_shouldNotChangeSlideNumber() {
         presentation.append(new Slide());
 
         nextSlide.execute();
@@ -41,8 +39,7 @@ public class NextSlideTest {
     }
 
     @Test
-    void nextSlide_twoSlides_shouldIncreaseBy1()
-    {
+    void nextSlide_twoSlides_shouldIncreaseBy1() {
         presentation.clear();
         presentation.append(new Slide());
         presentation.append(new Slide());
@@ -57,8 +54,7 @@ public class NextSlideTest {
     }
 
     @Test
-    void nextSlide_endOfPresentation_shouldNotIncrease()
-    {
+    void nextSlide_endOfPresentation_shouldNotIncrease() {
         presentation.clear();
         presentation.append(new Slide());
         presentation.append(new Slide());

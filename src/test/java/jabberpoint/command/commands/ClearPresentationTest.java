@@ -1,12 +1,13 @@
 package jabberpoint.command.commands;
 
-import jabberpoint.presentationComponents.*;
-import org.junit.jupiter.api.Test;
+import jabberpoint.presentationComponents.Presentation;
+import jabberpoint.presentationComponents.Slide;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ClearPresentationTest {
 
@@ -15,8 +16,7 @@ public class ClearPresentationTest {
     Command clearPresentation;
 
     @BeforeEach
-    void setup()
-    {
+    void setup() {
 
         frame = new Frame();
         presentation = new Presentation();
@@ -25,8 +25,7 @@ public class ClearPresentationTest {
     }
 
     @Test
-    void clearPresentation_emptyPresentation_shouldNotChangeSlideNumber()
-    {
+    void clearPresentation_emptyPresentation_shouldNotChangeSlideNumber() {
         presentation.clear();
 
         int testNumber = presentation.getSlideNumber();
@@ -36,8 +35,7 @@ public class ClearPresentationTest {
     }
 
     @Test
-    void clearPresentation_emptyPresentation_showListSizeIsZero()
-    {
+    void clearPresentation_emptyPresentation_showListSizeIsZero() {
         presentation.clear();
 
         clearPresentation.execute();
@@ -46,8 +44,7 @@ public class ClearPresentationTest {
     }
 
     @Test
-    void clearPresentation_singleSlide_slideNumberNegative1()
-    {
+    void clearPresentation_singleSlide_slideNumberNegative1() {
         presentation.append(new Slide());
         presentation.setSlideNumber(0);
 
@@ -57,8 +54,7 @@ public class ClearPresentationTest {
     }
 
     @Test
-    void clearPresentation_singleSlide_showListSizeIsZero()
-    {
+    void clearPresentation_singleSlide_showListSizeIsZero() {
         presentation.append(new Slide());
 
         clearPresentation.execute();

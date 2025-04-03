@@ -4,12 +4,11 @@ import jabberpoint.AboutBox;
 
 import java.awt.*;
 
-public class DisplayAboutBoxCommand extends Command{
+public class DisplayAboutBoxCommand extends Command {
 
     private Frame parent;
 
-    public DisplayAboutBoxCommand(Frame parent)
-    {
+    public DisplayAboutBoxCommand(Frame parent) {
         this.parent = parent;
     }
 

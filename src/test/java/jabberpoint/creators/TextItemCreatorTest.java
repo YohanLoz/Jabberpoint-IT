@@ -27,15 +27,16 @@ public class TextItemCreatorTest {
 
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         slide = new Slide();
         StyleFactory.getStyle(correctDefaultStyleName, correctStyleIndent, correctStyleColor, correctStyleFont, correctStyleFontSize, correctStyleLeading);
     }
 
     @AfterEach
-    public void tearDown(){
+    public void tearDown() {
         StyleFactory.fullResetStyles();
     }
+
     @Test
     void createTextItemCreator_noArgs_success() {
         assertDoesNotThrow(() -> {
@@ -56,12 +57,16 @@ public class TextItemCreatorTest {
 
     @Test
     void processArgs_null_throwsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, () -> {new TextItemCreator().processArgs(null);});
+        assertThrows(IllegalArgumentException.class, () -> {
+            new TextItemCreator().processArgs(null);
+        });
     }
 
     @Test
     void processArgs_empty_throwsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, () -> {new TextItemCreator().processArgs(new String[0]);});
+        assertThrows(IllegalArgumentException.class, () -> {
+            new TextItemCreator().processArgs(new String[0]);
+        });
     }
 
     @Test
@@ -72,170 +77,184 @@ public class TextItemCreatorTest {
 
     @Test
     void setStyle_fullArgs_nullColor_throwsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, () -> {new TextItemCreator().setStyle(correctStyleName, correctStyleIndent, null, correctStyleFont, correctStyleFontSize, correctStyleLeading);});
+        assertThrows(IllegalArgumentException.class, () -> {
+            new TextItemCreator().setStyle(correctStyleName, correctStyleIndent, null, correctStyleFont, correctStyleFontSize, correctStyleLeading);
+        });
     }
 
     @Test
     void setStyle_fullArgs_nullFont_throwsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, () -> {new TextItemCreator().setStyle(correctStyleName, correctStyleIndent, correctStyleColor, null, correctStyleFontSize, correctStyleLeading);});
+        assertThrows(IllegalArgumentException.class, () -> {
+            new TextItemCreator().setStyle(correctStyleName, correctStyleIndent, correctStyleColor, null, correctStyleFontSize, correctStyleLeading);
+        });
     }
 
     @Test
-    void setStyle_fromName_normal_success(){
+    void setStyle_fromName_normal_success() {
         item = new TextItemCreator().setStyle(correctDefaultStyleName).getItem();
         assertNotNull(item.getStyle());
     }
 
     @Test
-    void setStyle_fromName_null_throwsIllegalArgumentException(){
-        assertThrows(IllegalArgumentException.class, () -> {new TextItemCreator().setStyle((String) null);});
+    void setStyle_fromName_null_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new TextItemCreator().setStyle((String) null);
+        });
     }
 
     @Test
-    void setStyle_fromStyle_normal_success(){
+    void setStyle_fromStyle_normal_success() {
         Style style = StyleFactory.getStyleByName(correctDefaultStyleName);
         item = new TextItemCreator().setStyle(style).getItem();
         assertNotNull(item.getStyle());
     }
 
     @Test
-    void setStyle_fromStyle_null_throwsIllegalArgumentException(){
-        assertThrows(IllegalArgumentException.class, () -> {new TextItemCreator().setStyle((Style) null);});
+    void setStyle_fromStyle_null_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new TextItemCreator().setStyle((Style) null);
+        });
     }
 
     @Test
-    void setText_normal_success(){
+    void setText_normal_success() {
         item = new TextItemCreator().setText("test").setStyle(correctDefaultStyleName).getItem();
         assertNotNull(item.getStyle());
         assertNotEquals("", item.getText());
     }
 
     @Test
-    void setText_null_success(){
-        assertThrows(IllegalArgumentException.class, () -> {new TextItemCreator().setText(null);});
+    void setText_null_success() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new TextItemCreator().setText(null);
+        });
     }
 
     @Test
-    void setText_empty_success(){
-        assertThrows(IllegalArgumentException.class, () -> {new TextItemCreator().setText("");});
+    void setText_empty_success() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new TextItemCreator().setText("");
+        });
     }
 
     @Test
-    void appendToSlide_normal_success(){
+    void appendToSlide_normal_success() {
         new TextItemCreator().appendToSlide(slide);
         assertEquals(TextItem.class, slide.getSlideItem(0).getClass());
     }
 
     @Test
-    void appendToSlide_null_throwsIllegalArgumentException(){
-        assertThrows(IllegalArgumentException.class, () -> {new TextItemCreator().appendToSlide(null);});
+    void appendToSlide_null_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new TextItemCreator().appendToSlide(null);
+        });
     }
 
 
     @Test
-    void getSaveString_normal_returnsString(){
+    void getSaveString_normal_returnsString() {
         item = new TextItemCreator().setStyle(correctDefaultStyleName).getItem();
         assertEquals(String.class, TextItemCreator.getSaveString(item).getClass());
     }
 
     @Test
-    void getSaveString_null_throwsIllegalArgumentException(){
+    void getSaveString_null_throwsIllegalArgumentException() {
         item = new TextItemCreator().getItem();
         assertThrows(IllegalArgumentException.class, () -> TextItemCreator.getSaveString(null));
     }
 
     @Test
-    void setLevel_positive_doesNotThrow(){
-        assertDoesNotThrow(()->new TextItemCreator().setLevel(1));
+    void setLevel_positive_doesNotThrow() {
+        assertDoesNotThrow(() -> new TextItemCreator().setLevel(1));
     }
 
     @Test
-    void setLevel_zero_doesNotThrow(){
-        assertDoesNotThrow(()->new TextItemCreator().setLevel(0));
+    void setLevel_zero_doesNotThrow() {
+        assertDoesNotThrow(() -> new TextItemCreator().setLevel(0));
     }
 
     @Test
-    void setLevel_negative_doesNotThrow(){
-        assertDoesNotThrow(()->new TextItemCreator().setLevel(-1));
+    void setLevel_negative_doesNotThrow() {
+        assertDoesNotThrow(() -> new TextItemCreator().setLevel(-1));
     }
 
     @Test
-    void setCoords_posPos_doesNotThrow(){
-        assertDoesNotThrow(()->new TextItemCreator().setCoords(1, 1));
+    void setCoords_posPos_doesNotThrow() {
+        assertDoesNotThrow(() -> new TextItemCreator().setCoords(1, 1));
     }
 
     @Test
-    void setCoords_posZero_doesNotThrow(){
-        assertDoesNotThrow(()->new TextItemCreator().setCoords(1, 0));
+    void setCoords_posZero_doesNotThrow() {
+        assertDoesNotThrow(() -> new TextItemCreator().setCoords(1, 0));
     }
 
     @Test
-    void setCoords_posNeg_doesNotThrow(){
-        assertDoesNotThrow(()->new TextItemCreator().setCoords(1, -1));
+    void setCoords_posNeg_doesNotThrow() {
+        assertDoesNotThrow(() -> new TextItemCreator().setCoords(1, -1));
     }
 
     @Test
-    void setCoords_zeroPos_doesNotThrow(){
-        assertDoesNotThrow(()->new TextItemCreator().setCoords(0, 1));
+    void setCoords_zeroPos_doesNotThrow() {
+        assertDoesNotThrow(() -> new TextItemCreator().setCoords(0, 1));
     }
 
     @Test
-    void setCoords_zeroZero_doesNotThrow(){
-        assertDoesNotThrow(()->new TextItemCreator().setCoords(0, 0));
+    void setCoords_zeroZero_doesNotThrow() {
+        assertDoesNotThrow(() -> new TextItemCreator().setCoords(0, 0));
     }
 
     @Test
-    void setCoords_zeroNeg_doesNotThrow(){
-        assertDoesNotThrow(()->new TextItemCreator().setCoords(0, -1));
+    void setCoords_zeroNeg_doesNotThrow() {
+        assertDoesNotThrow(() -> new TextItemCreator().setCoords(0, -1));
     }
 
     @Test
-    void setCoords_NegPos_doesNotThrow(){
-        assertDoesNotThrow(()->new TextItemCreator().setCoords(-1, 1));
+    void setCoords_NegPos_doesNotThrow() {
+        assertDoesNotThrow(() -> new TextItemCreator().setCoords(-1, 1));
     }
 
     @Test
-    void setCoords_NegZero_doesNotThrow(){
-        assertDoesNotThrow(()->new TextItemCreator().setCoords(-1, 0));
+    void setCoords_NegZero_doesNotThrow() {
+        assertDoesNotThrow(() -> new TextItemCreator().setCoords(-1, 0));
     }
 
     @Test
-    void setCoords_NegNeg_doesNotThrow(){
-        assertDoesNotThrow(()->new TextItemCreator().setCoords(-1, -1));
+    void setCoords_NegNeg_doesNotThrow() {
+        assertDoesNotThrow(() -> new TextItemCreator().setCoords(-1, -1));
     }
 
     @Test
-    void setX_positive_doesNotThrow(){
-        assertDoesNotThrow(()->new TextItemCreator().setX(1));
+    void setX_positive_doesNotThrow() {
+        assertDoesNotThrow(() -> new TextItemCreator().setX(1));
     }
 
     @Test
-    void setX_zero_doesNotThrow(){
-        assertDoesNotThrow(()->new TextItemCreator().setX(0));
+    void setX_zero_doesNotThrow() {
+        assertDoesNotThrow(() -> new TextItemCreator().setX(0));
     }
 
     @Test
-    void setX_negative_doesNotThrow(){
-        assertDoesNotThrow(()->new TextItemCreator().setX(-1));
+    void setX_negative_doesNotThrow() {
+        assertDoesNotThrow(() -> new TextItemCreator().setX(-1));
     }
 
     @Test
-    void setY_positive_doesNotThrow(){
-        assertDoesNotThrow(()->new TextItemCreator().setY(1));
+    void setY_positive_doesNotThrow() {
+        assertDoesNotThrow(() -> new TextItemCreator().setY(1));
     }
 
     @Test
-    void setY_zero_doesNotThrow(){
-        assertDoesNotThrow(()->new TextItemCreator().setY(0));
+    void setY_zero_doesNotThrow() {
+        assertDoesNotThrow(() -> new TextItemCreator().setY(0));
     }
 
     @Test
-    void setY_negative_doesNotThrow(){
-        assertDoesNotThrow(()->new TextItemCreator().setY(-1));
+    void setY_negative_doesNotThrow() {
+        assertDoesNotThrow(() -> new TextItemCreator().setY(-1));
     }
 
     @Test
-    void getItem_returnsItem(){
+    void getItem_returnsItem() {
         assertEquals(TextItem.class, new TextItemCreator().getItem().getClass());
     }
 

@@ -1,12 +1,13 @@
 package jabberpoint;
 
 import jabberpoint.presentationComponents.Presentation;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DemoPresentationTest {
 
@@ -15,8 +16,7 @@ public class DemoPresentationTest {
     String fileName;
 
     @BeforeEach
-    void setup()
-    {
+    void setup() {
 
         demo = new DemoPresentation();
 
@@ -26,8 +26,7 @@ public class DemoPresentationTest {
     }
 
     @Test
-    void saveFile_callMethod_shouldThrowIllegalStateException()
-    {
+    void saveFile_callMethod_shouldThrowIllegalStateException() {
 
         assertThrows(IllegalStateException.class, () -> {
             demo.saveFile(presentation, fileName);

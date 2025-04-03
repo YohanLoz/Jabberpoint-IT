@@ -4,13 +4,12 @@ import jabberpoint.presentationComponents.Presentation;
 
 import java.awt.*;
 
-public class ClearPresentationCommand extends Command{
+public class ClearPresentationCommand extends Command {
 
     private Frame parent;
     private Presentation presentation;
 
-    public ClearPresentationCommand(Frame parent, Presentation presentation)
-    {
+    public ClearPresentationCommand(Frame parent, Presentation presentation) {
         this.parent = parent;
         this.presentation = presentation;
     }
