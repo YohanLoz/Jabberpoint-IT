@@ -1,10 +1,10 @@
 package jabberpoint.command.commands;
 
 import jabberpoint.presentationComponents.Presentation;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PreviousSlideTest {
 
@@ -12,8 +12,7 @@ public class PreviousSlideTest {
     Command previousSlide;
 
     @BeforeEach
-    void setup()
-    {
+    void setup() {
 
         presentation = new Presentation();
         previousSlide = new PreviousSlideCommand(presentation);
@@ -21,8 +20,7 @@ public class PreviousSlideTest {
     }
 
     @Test
-    void previousSlide_emptyPresentation_shouldNotChangeSlideNumber()
-    {
+    void previousSlide_emptyPresentation_shouldNotChangeSlideNumber() {
         presentation.clear();
 
         previousSlide.execute();
@@ -31,8 +29,7 @@ public class PreviousSlideTest {
     }
 
     @Test
-    void previousSlide_singleSlide_shouldNotChangeSlideNumber()
-    {
+    void previousSlide_singleSlide_shouldNotChangeSlideNumber() {
         presentation.setSlideNumber(0);
 
         previousSlide.execute();
@@ -41,8 +38,7 @@ public class PreviousSlideTest {
     }
 
     @Test
-    void previousSlide_twoSlides_shouldReduceBy1()
-    {
+    void previousSlide_twoSlides_shouldReduceBy1() {
         presentation.setSlideNumber(2);
 
         previousSlide.execute();

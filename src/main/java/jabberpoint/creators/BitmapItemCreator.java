@@ -8,13 +8,14 @@ public class BitmapItemCreator extends SlideItemCreator {
     static final String CLASSNAME = "BitmapItem";
 
     BitmapItem item;
+
     public BitmapItemCreator() {
         this.item = new BitmapItem();
     }
 
     @Override
     public BitmapItemCreator processArgs(String[] args) {
-        if(args == null || args.length == 0) {
+        if (args == null || args.length == 0) {
             throw new IllegalArgumentException("No args provided");
         }
         args = applyDefaultVarsReturnRest(args, item);
@@ -23,16 +24,16 @@ public class BitmapItemCreator extends SlideItemCreator {
         return this;
     }
 
-    public BitmapItemCreator setImage(String path){
-        if(path == null || path.isEmpty()){
+    public BitmapItemCreator setImage(String path) {
+        if (path == null || path.isEmpty()) {
             throw new IllegalArgumentException("No path provided");
         }
         item.setImageName(path);
         return this;
     }
 
-    public BitmapItemCreator setScale(float scale){
-        if(scale <= 0.0f){
+    public BitmapItemCreator setScale(float scale) {
+        if (scale <= 0.0f) {
             throw new IllegalArgumentException("Scale must be greater than zero");
         }
         item.setSize(scale);
@@ -40,15 +41,15 @@ public class BitmapItemCreator extends SlideItemCreator {
     }
 
     public BitmapItemCreator appendToSlide(Slide slide) {
-        if(slide == null){
+        if (slide == null) {
             throw new IllegalArgumentException("Slide cannot be null");
         }
         super.appendToSlide(slide, item);
         return this;
     }
 
-    static public String getSaveString(BitmapItem item){
-        if(item == null){
+    static public String getSaveString(BitmapItem item) {
+        if (item == null) {
             throw new IllegalArgumentException("BitmapItem cannot be null");
         }
         String[] values = {item.getName(), item.getSize().toString()};

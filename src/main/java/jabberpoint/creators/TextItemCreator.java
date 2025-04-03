@@ -12,13 +12,14 @@ public class TextItemCreator extends SlideItemCreator {
     static final String CLASSNAME = "TextItem";
 
     private TextItem item;
+
     public TextItemCreator() {
         this.item = new TextItem();
     }
 
     @Override
     public TextItemCreator processArgs(String[] args) {
-        if(args == null || args.length == 0) {
+        if (args == null || args.length == 0) {
             throw new IllegalArgumentException("No args provided");
         }
         args = applyDefaultVarsReturnRest(args, item);
@@ -29,11 +30,11 @@ public class TextItemCreator extends SlideItemCreator {
         return this;
     }
 
-    public TextItemCreator setStyle(String name, int indent, Color color, Font font, int fontSize, int leading){
-        if(color == null){
+    public TextItemCreator setStyle(String name, int indent, Color color, Font font, int fontSize, int leading) {
+        if (color == null) {
             throw new IllegalArgumentException("No color provided");
         }
-        if(font == null){
+        if (font == null) {
             throw new IllegalArgumentException("No font provided");
         }
         Style style = StyleFactory.getStyle(name, indent, color, font, fontSize, leading);
@@ -41,20 +42,20 @@ public class TextItemCreator extends SlideItemCreator {
         return this;
     }
 
-    public TextItemCreator setStyle(String name){
-        if(name == null || name.isEmpty()){
+    public TextItemCreator setStyle(String name) {
+        if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Style name cannot be null or empty");
         }
         Style style = StyleFactory.getStyleByName(name);
-        if(style == null){
+        if (style == null) {
             throw new IllegalArgumentException("No such style: " + name);
         }
         setStyle(style);
         return this;
     }
 
-    public TextItemCreator setStyle(Style style){
-        if(style == null){
+    public TextItemCreator setStyle(Style style) {
+        if (style == null) {
             throw new IllegalArgumentException("No style provided");
         }
         int id = StyleFactory.getIdByName(style.name);
@@ -62,9 +63,8 @@ public class TextItemCreator extends SlideItemCreator {
         return this;
     }
 
-
-    public TextItemCreator setText(String text){
-        if(text == null || text.isEmpty()){
+    public TextItemCreator setText(String text) {
+        if (text == null || text.isEmpty()) {
             throw new IllegalArgumentException("Text cannot be null or empty");
         }
         item.setText(text);
@@ -72,7 +72,7 @@ public class TextItemCreator extends SlideItemCreator {
     }
 
     public TextItemCreator appendToSlide(Slide slide) {
-        if(slide == null){
+        if (slide == null) {
             throw new IllegalArgumentException("No slide provided");
         }
         super.appendToSlide(slide, item);
@@ -108,7 +108,7 @@ public class TextItemCreator extends SlideItemCreator {
     }
 
     public static String getSaveString(TextItem item) {
-        if(item == null){
+        if (item == null) {
             throw new IllegalArgumentException("No TextItem provided");
         }
         String[] values = {item.getText(),

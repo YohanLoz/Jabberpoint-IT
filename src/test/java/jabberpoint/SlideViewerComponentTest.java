@@ -1,15 +1,15 @@
 package jabberpoint;
 
-import jabberpoint.presentationComponents.*;
-import org.junit.jupiter.api.Test;
+import jabberpoint.presentationComponents.Presentation;
+import jabberpoint.presentationComponents.Slide;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import javax.swing.*;
-
 import java.awt.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SlideViewerComponentTest {
 
@@ -18,8 +18,7 @@ public class SlideViewerComponentTest {
     SlideViewerComponent svc;
 
     @BeforeEach
-    void setup()
-    {
+    void setup() {
 
         frame = new JFrame();
         presentation = new Presentation();
@@ -29,8 +28,7 @@ public class SlideViewerComponentTest {
     }
 
     @Test
-    void getPreferredSize_default_shouldReturnDimension()
-    {
+    void getPreferredSize_default_shouldReturnDimension() {
 
         Dimension dim = svc.getPreferredSize();
 
@@ -40,8 +38,7 @@ public class SlideViewerComponentTest {
     }
 
     @Test
-    void paintComponent_default_shouldDraw()
-    {
+    void paintComponent_default_shouldDraw() {
 
         Graphics g = Mockito.mock(Graphics.class);
         svc.paintComponent(g);
@@ -49,8 +46,7 @@ public class SlideViewerComponentTest {
     }
 
     @Test
-    void update_emptyPresentationSlide_shouldWork()
-    {
+    void update_emptyPresentationSlide_shouldWork() {
 
         Slide slide = new Slide();
         svc.update(presentation, slide);
@@ -58,8 +54,7 @@ public class SlideViewerComponentTest {
     }
 
     @Test
-    void update_nullSlide_shouldWork()
-    {
+    void update_nullSlide_shouldWork() {
 
         Slide slide = new Slide();
         svc.update(presentation, null);

@@ -2,13 +2,13 @@ package jabberpoint.command;
 
 import jabberpoint.presentationComponents.Presentation;
 import jabberpoint.presentationComponents.Slide;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class KeyControllerTest {
 
@@ -27,12 +27,11 @@ public class KeyControllerTest {
     }
 
     @Test
-    void keyPressed_pageDown_shouldExecuteNextSlide()
-    {
+    void keyPressed_pageDown_shouldExecuteNextSlide() {
 
         p.append(new Slide());
 
-        KeyEvent key = new KeyEvent(frame, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0,  KeyEvent.VK_PAGE_DOWN);
+        KeyEvent key = new KeyEvent(frame, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_PAGE_DOWN);
         keyController.keyPressed(key);
 
         assertEquals(0, p.getSlideNumber());
@@ -40,12 +39,11 @@ public class KeyControllerTest {
     }
 
     @Test
-    void keyPressed_rightArrow_shouldExecuteNextSlide()
-    {
+    void keyPressed_rightArrow_shouldExecuteNextSlide() {
 
         p.append(new Slide());
 
-        KeyEvent key = new KeyEvent(frame, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0,  KeyEvent.VK_RIGHT);
+        KeyEvent key = new KeyEvent(frame, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_RIGHT);
         keyController.keyPressed(key);
 
         assertEquals(0, p.getSlideNumber());
@@ -53,12 +51,11 @@ public class KeyControllerTest {
     }
 
     @Test
-    void keyPressed_enter_shouldExecuteNextSlide()
-    {
+    void keyPressed_enter_shouldExecuteNextSlide() {
 
         p.append(new Slide());
 
-        KeyEvent key = new KeyEvent(frame, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0,  KeyEvent.VK_ENTER);
+        KeyEvent key = new KeyEvent(frame, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_ENTER);
         keyController.keyPressed(key);
 
         assertEquals(0, p.getSlideNumber());
@@ -66,14 +63,13 @@ public class KeyControllerTest {
     }
 
     @Test
-    void keyPressed_plus_shouldExecutePreviousSlide()
-    {
+    void keyPressed_plus_shouldExecutePreviousSlide() {
 
         p.append(new Slide());
         p.append(new Slide());
         p.setSlideNumber(1);
 
-        KeyEvent key = new KeyEvent(frame, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0,  KeyEvent.VK_PAGE_UP);
+        KeyEvent key = new KeyEvent(frame, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_PAGE_UP);
         keyController.keyPressed(key);
 
         assertEquals(0, p.getSlideNumber());

@@ -1,23 +1,21 @@
 package jabberpoint.command;
 
 import jabberpoint.presentationComponents.Presentation;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class MenuControllerTest
-{
+public class MenuControllerTest {
 
     Frame frame;
     Presentation presentation;
     MenuController menu;
 
     @BeforeEach
-    void setup()
-    {
+    void setup() {
 
         frame = new Frame();
         presentation = new Presentation();
@@ -27,8 +25,7 @@ public class MenuControllerTest
     }
 
     @Test
-    void mkMenuItem_inputOpen_shouldReturnMenuItemCorrectName()
-    {
+    void mkMenuItem_inputOpen_shouldReturnMenuItemCorrectName() {
 
         String open = "Open";
 

@@ -8,16 +8,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
-public class OpenPresentationCommand extends Command
-{
+public class OpenPresentationCommand extends Command {
 
     private Frame parent;
     private Presentation presentation;
 
-    public OpenPresentationCommand(Frame parent, Presentation presentation)
-    {
+    public OpenPresentationCommand(Frame parent, Presentation presentation) {
         this.parent = parent;
-        this.presentation  = presentation;
+        this.presentation = presentation;
     }
 
     @Override
