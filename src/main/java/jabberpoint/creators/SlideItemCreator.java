@@ -95,6 +95,8 @@ public abstract class SlideItemCreator {
         item.setY(y);
     }
 
+    public abstract SlideItem getItem();
+
     static protected String getSaveString(String name, String newContent, SlideItem item) {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Name is required");

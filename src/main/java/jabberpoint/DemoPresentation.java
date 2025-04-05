@@ -17,6 +17,7 @@ import java.awt.*;
 
 class DemoPresentation extends Accessor {
 
+    @Override
     public void loadFile(Presentation presentation, String unusedFilename) {
         presentation.setTitle("Demo presentationComponents.Presentation");
         Slide slide;
@@ -57,6 +58,7 @@ class DemoPresentation extends Accessor {
 
     }
 
+    @Override
     public void saveFile(Presentation presentation, String unusedFilename) {
         throw new IllegalStateException("Save As->Demo! called");
     }

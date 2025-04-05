@@ -30,7 +30,6 @@ public class BitmapItem extends SlideItem {
         super();
     }
 
-    // give the filename of the image
     public String getName() {
         return imageName;
     }
@@ -56,13 +55,13 @@ public class BitmapItem extends SlideItem {
         this.size = size;
     }
 
-    // draw the image
+    @Override
     public void draw(float scale, Graphics g, ImageObserver observer) {
         Rectangle boundingBox = getBoundingBox(g, observer, scale);
         g.drawImage(bufferedImage, getX(), getY(), boundingBox.width, boundingBox.height, observer);
     }
 
-    // give the  bounding box of the image
+    @Override
     public Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale) {
         return new Rectangle((int) (1 * scale), 0,
                 (int) (bufferedImage.getWidth(observer) * scale * size),
@@ -79,6 +78,7 @@ public class BitmapItem extends SlideItem {
         return cloneItem;
     }
 
+    @Override
     public String toString() {
         return "presentationComponents.BitmapItem[" + getLevel() + "," + imageName + "]";
     }

@@ -28,8 +28,6 @@ import java.util.List;
 public class TextItem extends SlideItem {
     private String text;
 
-    private static final String EMPTYTEXT = "No Text Given";
-
     private int styleId;
 
     // an empty textitem
@@ -51,7 +49,6 @@ public class TextItem extends SlideItem {
         this.styleId = styleId;
     }
 
-    // geef de AttributedString voor het item
     public AttributedString getAttributedString(float scale) {
         if (scale <= 0) {
             throw new IllegalArgumentException("scale cannot be null or negative");
@@ -61,7 +58,7 @@ public class TextItem extends SlideItem {
         return attrStr;
     }
 
-    // give the bounding box of the item
+    @Override
     public Rectangle getBoundingBox(Graphics g, ImageObserver observer,
                                     float scale) {
         if (g == null) {
@@ -90,7 +87,7 @@ public class TextItem extends SlideItem {
         return new Rectangle((int) (getStyle().indent * scale), 0, xsize, ysize);
     }
 
-    // draw the item
+    @Override
     public void draw(float scale, Graphics g, ImageObserver o) {
         if (g == null) {
             throw new IllegalArgumentException("graphics cannot be null");
@@ -146,6 +143,7 @@ public class TextItem extends SlideItem {
         return layouts;
     }
 
+    @Override
     public String toString() {
         return "presentationComponents.TextItem[" + getLevel() + "," + getText() + "]";
     }

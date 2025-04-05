@@ -12,7 +12,7 @@ import java.awt.image.ImageObserver;
  */
 
 public abstract class SlideItem {
-    private int level = 0; // level of the slideitem
+    private int level = 0; // determines which SlideItem is rendered first
     private int x = 0;
     private int y = 0;
 
@@ -59,6 +59,8 @@ public abstract class SlideItem {
 
     // Clone the item
     public abstract SlideItem clone();
+
+    public abstract String toString();
 
     public abstract String getSaveString();
 }
