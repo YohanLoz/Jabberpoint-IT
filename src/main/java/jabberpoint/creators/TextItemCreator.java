@@ -71,6 +71,7 @@ public class TextItemCreator extends SlideItemCreator {
         return this;
     }
 
+    @Override
     public TextItemCreator appendToSlide(Slide slide) {
         if (slide == null) {
             throw new IllegalArgumentException("No slide provided");
@@ -103,6 +104,7 @@ public class TextItemCreator extends SlideItemCreator {
         return this;
     }
 
+    @Override
     public TextItem getItem() {
         return item;
     }

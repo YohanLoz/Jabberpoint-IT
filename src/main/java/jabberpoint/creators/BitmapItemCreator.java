@@ -40,6 +40,7 @@ public class BitmapItemCreator extends SlideItemCreator {
         return this;
     }
 
+    @Override
     public BitmapItemCreator appendToSlide(Slide slide) {
         if (slide == null) {
             throw new IllegalArgumentException("Slide cannot be null");
@@ -81,6 +82,7 @@ public class BitmapItemCreator extends SlideItemCreator {
         return this;
     }
 
+    @Override
     public BitmapItem getItem() {
         return item;
     }
