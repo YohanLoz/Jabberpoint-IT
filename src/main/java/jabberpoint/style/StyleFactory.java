@@ -10,10 +10,6 @@ public class StyleFactory {
 
     private static int unnamedId = 0;
 
-    public StyleFactory() {
-        styles = new ArrayList<Style>();
-    }
-
     public static Style getStyleFromArgs(String[] args) {
         if (args == null || args.length == 0) {
             throw new IllegalArgumentException("No args provided");
